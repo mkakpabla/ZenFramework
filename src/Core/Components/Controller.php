@@ -15,7 +15,10 @@ class Controller
 
     public function __construct()
     {
-        $this->renderer = new Renderer(dirname(dirname(dirname(__DIR__))) . '/views/', dirname(dirname(dirname(__DIR__))) . '/views/cache//');
+        $this->renderer = new Renderer(
+            dirname(dirname(dirname(__DIR__))) . '/views/',
+            dirname(dirname(dirname(__DIR__))) . '/views/cache//'
+        );
         //$this->pdo = $this->MysqlDatabase()->getPDO();
 
     }
