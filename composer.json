@@ -20,7 +20,10 @@
         "aura/router": "^3.1",
         "guzzlehttp/psr7": "^1.6",
         "zendframework/zend-httphandlerrunner": "^1.1",
-        "http-interop/response-sender": "^1.0"
+        "http-interop/response-sender": "^1.0",
+        "doctrine/orm": "^2.6",
+        "psr/http-server-middleware": "^1.0",
+        "illuminate/database": "^5.8"
     },
     "autoload": {
         "psr-4": {

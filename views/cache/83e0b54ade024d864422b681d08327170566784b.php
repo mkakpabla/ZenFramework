@@ -1,0 +1,1 @@
+<h1>Page Home</h1><?php /**PATH /media/zenthos/042A4BEE2A4BDB76/Workspace/ZenFramework/views/home.blade.php ENDPATH**/ ?>

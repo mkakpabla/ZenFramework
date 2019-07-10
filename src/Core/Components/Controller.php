@@ -19,10 +19,4 @@ class Controller
         //$this->pdo = $this->MysqlDatabase()->getPDO();
 
     }
-    /*
-    private function MysqlDatabase()
-    {
-        return new MysqlDatabase('localhost', 'agence_immobiliere', 'root', 'root');
-    }
-    */
 }

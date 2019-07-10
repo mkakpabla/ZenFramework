@@ -12,6 +12,8 @@ $whoops = new Run;
 $whoops->pushHandler(new PrettyPageHandler);
 $whoops->register();
 
+require implode(DIRECTORY_SEPARATOR, [dirname(__DIR__), "src", "bootstrap.php"]);
+
 $router = new Router(ServerRequest::fromGlobals());
 
 
