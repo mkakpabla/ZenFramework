@@ -1,5 +1,8 @@
 <?php
+use Core\Components\Database;
 
+$config  =  require implode(DIRECTORY_SEPARATOR, ['config', 'database.php']);
+$database = new Database($config);
 
 return [
 
@@ -11,8 +14,8 @@ return [
     'environnements' => [
         'default_database' => 'development',
         'development' => [
-            'name' => 'agence',
-            'connection' => ''
+            'name' => $config['database'],
+            'connection' => $database->getPDO()
         ]
     ]
 ];

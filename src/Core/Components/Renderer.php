@@ -6,7 +6,6 @@ use Jenssegers\Blade\Blade;
 class Renderer
 {
 
-
     /***
      * Represente le chemin vers les vues
      * @var string

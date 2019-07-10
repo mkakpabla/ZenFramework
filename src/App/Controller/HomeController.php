@@ -6,7 +6,6 @@ namespace App\Controller;
 
 use App\Models\Book;
 use Core\Components\Controller;
-use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 class HomeController extends Controller

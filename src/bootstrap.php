@@ -1,4 +1,6 @@
 <?php
+require "../vendor/autoload.php";
+
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Container\Container;
@@ -9,7 +11,7 @@ $database  =  require implode(DIRECTORY_SEPARATOR, [dirname(__DIR__), 'config', 
 
 $capsule = new Capsule;
 
-$capsule->addConnection($database['mysql']);
+$capsule->addConnection($database);
 
 
 // Make this Capsule instance available globally via static methods... (optional)

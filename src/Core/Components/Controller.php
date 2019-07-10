@@ -1,10 +1,6 @@
 <?php
 namespace Core\Components;
 
-
-use App\Database\MysqlDatabase;
-use Core\Components\Renderer;
-
 class Controller
 {
 
@@ -17,9 +13,9 @@ class Controller
     {
         $this->renderer = new Renderer(
             dirname(dirname(dirname(__DIR__))) . '/views/',
-            dirname(dirname(dirname(__DIR__))) . '/views/cache//'
+            dirname(dirname(dirname(__DIR__))) . '/cache//'
         );
-        //$this->pdo = $this->MysqlDatabase()->getPDO();
+        //$this->pdo = $this->Database()->getPDO();
 
     }
 }

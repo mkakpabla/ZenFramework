@@ -1,1 +1,0 @@
-<h1>Page Home</h1><?php /**PATH D:\Workspace\ZenFramework\views/home.blade.php ENDPATH**/ ?>

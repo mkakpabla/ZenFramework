@@ -1,16 +1,15 @@
 <?php
-namespace App\Database;
+namespace Core\Components;
 
 
 use PDO;
 
 /**
- * Class MysqlDatabase
+ * Class Database
  * @package App\Database
  */
-class MysqlDatabase
+class Database
 {
-
 
     /**
      * @var string
@@ -35,18 +34,15 @@ class MysqlDatabase
     private $pdo;
 
     /**
-     * MysqlDatabase constructor.
-     * @param string $db_host
-     * @param string $db_name
-     * @param string $db_user
-     * @param string $db_password
+     * Database constructor.
+     * @param array $databaseConfig
      */
-    public function __construct(string $db_host, string $db_name, string $db_user, string $db_password)
+    public function __construct(array $databaseConfig)
     {
-        $this->db_host = $db_host;
-        $this->db_name = $db_name;
-        $this->db_user = $db_user;
-        $this->db_password = $db_password;
+        $this->db_host = $databaseConfig['host'];
+        $this->db_name = $databaseConfig['database'];
+        $this->db_user = $databaseConfig['username'];
+        $this->db_password = $databaseConfig['password'];
     }
 
     /**
