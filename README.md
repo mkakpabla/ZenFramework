@@ -1,1 +1,1 @@
-[![GitHub license](https://img.shields.io/badge/license-New%20MIT-blue.svg)](https://github.com/Fukotaku/files-manager/blob/master/LICENSE)
+# ZenFramework
