@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Controller;
-
 
 use App\Models\Book;
 use Core\Components\Controller;
@@ -26,6 +24,7 @@ class BooksController extends Controller
 
     public function store(ServerRequestInterface $request)
     {
+
         Book::create($request->getParsedBody());
     }
 

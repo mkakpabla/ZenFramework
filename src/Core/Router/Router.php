@@ -20,14 +20,14 @@ class Router
 
     }
 
-    public function get(string $uri, $callable, string $name)
+    public function get(string $uri, $handler, string $name)
     {
-        $this->routerContainer->getMap()->get($name, $uri, $callable);
+        $this->routerContainer->getMap()->get($name, $uri, $handler);
     }
 
-    public function post(string $uri, $callable, string $name)
+    public function post(string $uri, $handler, string $name)
     {
-        $this->routerContainer->getMap()->post($name, $uri, $callable);
+        $this->routerContainer->getMap()->post($name, $uri, $handler);
     }
 
     public function match(ServerRequestInterface $request)

@@ -1,0 +1,20 @@
+#!/usr/bin/env php
+<?php
+// File: sushi
+
+require __DIR__.'/vendor/autoload.php';
+
+use Core\Commands\GenerateController;
+use Core\Commands\GenerateMiddleware;
+use Symfony\Component\Console\Application;
+
+$application = new Application('ZenTerminal', '1.0.0');
+
+//$GenerateCommand = new \Commands\GenerateCommand();
+$generateController = new GenerateController();
+$generateMiddleware = new GenerateMiddleware();
+
+$application->add($generateController);
+$application->add($generateMiddleware);
+
+$application->run();

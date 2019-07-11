@@ -6,12 +6,12 @@ use Illuminate\Events\Dispatcher;
 use Illuminate\Container\Container;
 
 
-$database  =  require implode(DIRECTORY_SEPARATOR, [dirname(__DIR__), 'config', 'database.php']);
+$config =  require implode(DIRECTORY_SEPARATOR, [dirname(__DIR__), 'config', 'database.php']);
 
 
 $capsule = new Capsule;
 
-$capsule->addConnection($database);
+$capsule->addConnection($config);
 
 
 // Make this Capsule instance available globally via static methods... (optional)
@@ -25,4 +25,6 @@ $capsule->setAsGlobal();
 
 // Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
 $capsule->bootEloquent();
+
+require implode(DIRECTORY_SEPARATOR, [dirname(__DIR__), "src", "App", "web.php"]);
 

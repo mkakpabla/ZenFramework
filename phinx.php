@@ -11,10 +11,11 @@ return [
         'seeds' => __DIR__ . '/database/seeds'
     ],
     
-    'environnements' => [
+    'environments' => [
+        'default_migration_table' => 'migrations',
         'default_database' => 'development',
         'development' => [
-            'name' => $config['database'],
+            'name' => 'development',
             'connection' => $database->getPDO()
         ]
     ]
