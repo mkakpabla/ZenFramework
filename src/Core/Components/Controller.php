@@ -1,9 +1,11 @@
 <?php
 namespace Core\Components;
 
+use Core\Helpers\Redirect;
+
 class Controller
 {
-
+    use Redirect;
 
     public $renderer;
 
@@ -15,7 +17,6 @@ class Controller
             dirname(dirname(dirname(__DIR__))) . '/views/',
             dirname(dirname(dirname(__DIR__))) . '/cache//'
         );
-        //$this->pdo = $this->Database()->getPDO();
 
     }
 }

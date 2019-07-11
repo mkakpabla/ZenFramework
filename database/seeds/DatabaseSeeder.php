@@ -2,6 +2,7 @@
 
 
 use App\Models\Category;
+use Faker\Factory;
 use Phinx\Seed\AbstractSeed;
 
 class DatabaseSeeder extends AbstractSeed
@@ -16,20 +17,14 @@ class DatabaseSeeder extends AbstractSeed
      */
     public function run()
     {
-        for($i = 1; $i <= 5; $i++) {
-            Category::create([
-                'title' => 'Catégorie' . $i,
-                'slug' => 'catégorie-'. $i
-            ]);
-        }
+        $faker = Factory::create('fr_FR');
+        $this->table('books')
+            ->insert([
+                'title' => $faker->catchPhrase,
+                'slug' => $faker->slug(3),
+                'author' => $faker->name,
+                'summary' => $faker->paragraph()
+            ])->save();
 
-        for($i = 1; $i <= 10; $i++) {
-            \App\Models\Book::create([
-                'title' => 'Livre' . $i,
-                'slug' => 'livre-'. $i,
-                'author' => 'author-'. $i,
-                'summary' => 'summary'. $i
-            ]);
-        }
     }
 }

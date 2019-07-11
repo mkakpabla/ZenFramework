@@ -39,7 +39,6 @@ class RouterMiddleware implements MiddlewareInterface
         $route = $this->router->match($request);
         if (!$route) {
             return  $handler->handle($request);
-            //return new Response(404, [], '<h1>404 Not Found</h1>');
         } else {
             if (is_callable($route->getHandler())) {
                 $response =  call_user_func_array($route->getHandler(), [$request]);

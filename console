@@ -1,6 +1,5 @@
 #!/usr/bin/env php
 <?php
-// File: sushi
 
 require __DIR__.'/vendor/autoload.php';
 
@@ -10,11 +9,8 @@ use Symfony\Component\Console\Application;
 
 $application = new Application('ZenTerminal', '1.0.0');
 
-//$GenerateCommand = new \Commands\GenerateCommand();
-$generateController = new GenerateController();
-$generateMiddleware = new GenerateMiddleware();
 
-$application->add($generateController);
-$application->add($generateMiddleware);
+$application->add(new GenerateController());
+$application->add(new GenerateMiddleware());
 
 $application->run();

@@ -16,7 +16,6 @@ class BooksController extends Controller
     }
 
 
-
     public function create(ServerRequestInterface $request)
     {
         return $this->renderer->render('books.create');
@@ -24,7 +23,6 @@ class BooksController extends Controller
 
     public function store(ServerRequestInterface $request)
     {
-
         Book::create($request->getParsedBody());
     }
 

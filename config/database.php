@@ -1,5 +1,13 @@
 <?php
-require_once 'env.php';
+use Dotenv\Dotenv;
+
+$env = dirname(__DIR__)."/.env";
+
+if(file_exists($env)) {
+    // Initialisation du .env
+    $dotenv = Dotenv::create(dirname(__DIR__));
+    $dotenv->load();
+}
 $database  =  [
     "mysql" => [
         'driver'   => 'mysql',

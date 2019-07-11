@@ -1,7 +1,7 @@
 <?php
-namespace App\helpers;
+namespace Core\Helpers;
 
-class Redirect
+trait Redirect
 {
 
     public static function to(string $redierctLink)
