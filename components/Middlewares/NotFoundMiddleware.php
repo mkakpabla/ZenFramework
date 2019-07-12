@@ -1,13 +1,17 @@
 <?php
-namespace App\Middlewares;
 
+
+namespace Components\Middlewares;
+
+
+use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class StralingSlashMiddleware implements MiddlewareInterface {
-
+class NotFoundMiddleware implements MiddlewareInterface
+{
 
     /**
      * Process an incoming server request.
@@ -21,6 +25,6 @@ class StralingSlashMiddleware implements MiddlewareInterface {
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        return $handler->handle($request);
+        return new Response(404, [], '<h1>404 Not Found</h1>');
     }
 }

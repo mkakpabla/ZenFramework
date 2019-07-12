@@ -18,9 +18,11 @@
         "http-interop/response-sender": "^1.0",
         "psr/http-server-middleware": "^1.0",
         "illuminate/database": "^5.8",
+        "propel/propel": "~2.0@dev",
         "ext-pdo": "*",
         "symfony/console": "^4.3",
-        "middlewares/whoops": "^1.2"
+        "middlewares/whoops": "^1.2",
+        "middlewares/debugbar": "^1.1"
     },
     "autoload": {
         "psr-4": {

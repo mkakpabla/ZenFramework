@@ -4,7 +4,8 @@
 namespace Test\Core;
 
 
-use Core\Router\Router;
+use App\Controllers\HomeController;
+use Components\Router\Router;
 use GuzzleHttp\Psr7\ServerRequest;
 use PHPUnit\Framework\TestCase;
 
@@ -33,15 +34,16 @@ class RouterTest extends TestCase
     public function testGetMethodWithController()
     {
         $request = new ServerRequest('GET', '/welcome');
-        $this->router->get('/welcome', '\App\Controller\HomeController#welcome', 'welcome');
+        $this->router->get('/welcome', '\App\Controllers\HomeController#index', 'welcome');
         $route = $this->router->match($request);
-        $this->assertEquals('\App\Controller\HomeController#welcome', $route->getHandler());
+        $this->assertEquals([new HomeController(), 'index'], $route->getHandler());
+        $this->assertEquals('welcome', call_user_func_array($route->getHandler(), [$request]));
     }
 
     public function testGetMethodNotFound()
     {
         $request = new ServerRequest('GET', '/notfound');
-        $this->router->get('/welcome', '\App\Controller\HomeController#welcome', 'welcome');
+        $this->router->get('/welcome', '\App\Controllers\HomeController#welcome', 'welcome');
         $route = $this->router->match($request);
         $this->assertEquals(null, $route);
     }

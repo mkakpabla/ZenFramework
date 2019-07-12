@@ -1,12 +1,14 @@
 <?php
 
 
-namespace App\Middlewares;
+namespace Components\Middlewares;
 
 
 
+use App\Controllers\HomeController;
 use Components\Router\Router;
 use GuzzleHttp\Psr7\Response;
+use function PHPSTORM_META\type;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -38,19 +40,10 @@ class RouterMiddleware implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $route = $this->router->match($request);
-        if (!$route) {
-            return  $handler->handle($request);
-        } else {
-            if (is_callable($route->getHandler())) {
-                $response =  call_user_func_array($route->getHandler(), [$request]);
-                return new Response(200, [], $response);
-            } elseif (is_string($route->getHandler())) {
-                $target = explode('#', $route->getHandler());
-                $controller = new $target[0]();
-                $action = $target[1];
-                $response = $controller->$action($request);
-                return new Response(200, [], $response);
-            }
+        if ($route) {
+            $response =  call_user_func_array($route->getHandler(), [$request]);
+            return new Response(200, [], $response);
         }
+        return  $handler->handle($request);
     }
 }

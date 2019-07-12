@@ -1,9 +1,9 @@
 <?php
 
-use App\Middlewares\NotFoundMiddleware;
-use App\Middlewares\RouterMiddleware;
-use App\Middlewares\StralingSlashMiddleware;
 use Components\App;
+use Components\Middlewares\NotFoundMiddleware;
+use Components\Middlewares\RouterMiddleware;
+use Components\Middlewares\StralingSlashMiddleware;
 use GuzzleHttp\Psr7\ServerRequest;
 use function Http\Response\send;
 use Middlewares\Whoops;

@@ -60,6 +60,13 @@ class Route
      */
     public function getHandler()
     {
+        if (is_string($this->handler)) {
+            $target = explode('#', $this->handler);
+            $controller = new $target[0]();
+            $action = $target[1];
+            return [$controller, $action];
+        }
+
         return $this->handler;
     }
 
