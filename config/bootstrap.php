@@ -27,3 +27,5 @@ $capsule->bootEloquent();
 
 require implode(DIRECTORY_SEPARATOR, [dirname(__DIR__), "routes", "web.php"]);
 
+require implode(DIRECTORY_SEPARATOR, [dirname(__DIR__), "routes", "api.php"]);
+

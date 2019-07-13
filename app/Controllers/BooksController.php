@@ -13,13 +13,12 @@ class BooksController extends Controller
     public function index(ServerRequestInterface $request)
     {
         $books = Book::all();
-
         return $this->renderer->render('books.index', compact('books'));
     }
 
     public function show(ServerRequestInterface $request, $slug)
     {
-        $book = Book::where('slug', $slug)->first();
+        $book = Book::where('slug', $slug)->firstOrFail();
         return $this->renderer->render('books.show', compact('book'));
     }
 

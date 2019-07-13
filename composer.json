@@ -26,10 +26,13 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src",
+            "App\\": "app",
             "Components\\": "components",
             "Test\\": "tests"
-        }
+        },
+        "file": [
+            "components/functions.php"
+        ]
     },
     "require-dev": {
         "robmorgan/phinx": "^0.10.7",
