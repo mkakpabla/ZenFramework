@@ -20,8 +20,8 @@ if(getenv('APP_ENV') == "development"){
 
 return [
     'paths' => [
-        'migrations' => __DIR__ . '/app/Database/Migrations',
-        'seeds' => __DIR__ . '/app/Database/Seeds'
+        'migrations' => __DIR__ . '/src/Database/Migrations',
+        'seeds' => __DIR__ . '/src/Database/Seeds'
     ],
     'environments' => [
         'default_database' => $database_default,

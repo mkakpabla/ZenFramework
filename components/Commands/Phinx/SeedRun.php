@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Components\Commands;
+namespace Components\Commands\Phinx;
 
 
 class SeedRun extends \Phinx\Console\Command\SeedRun

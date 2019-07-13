@@ -48,11 +48,11 @@ class Route
     }
 
     /**
-     * @return array
+     * @return string
      */
-    public function getAttributes(): array
+    public function getAttributes(): string
     {
-        return $this->attributes;
+        return implode(',', $this->attributes);
     }
 
     /**

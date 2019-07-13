@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Components\Commands;
+namespace Components\Commands\Phinx;
 
 
 use Phinx\Console\Command\SeedCreate;

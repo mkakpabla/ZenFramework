@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Components\Commands;
+namespace Components\Commands\Phinx;
 
 
 class Migrate extends \Phinx\Console\Command\Migrate

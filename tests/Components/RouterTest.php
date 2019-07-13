@@ -8,6 +8,7 @@ use App\Controllers\HomeController;
 use Components\Router\Router;
 use GuzzleHttp\Psr7\ServerRequest;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\ServerRequestInterface;
 
 class RouterTest extends TestCase
 {
@@ -31,13 +32,25 @@ class RouterTest extends TestCase
         $this->assertEquals('welcome', $route->getName());
     }
 
+    public function testGetMethodWithAttribute()
+    {
+        $request = new ServerRequest('GET', '/welcome/michel');
+        $this->router->get('/welcome/{name}', function (ServerRequestInterface $request, $name){
+            return $name;
+            },
+            'welcome');
+        $route = $this->router->match($request);
+        $this->assertEquals('michel', call_user_func_array($route->getHandler(), [$request, $route->getAttributes()]));
+        $this->assertEquals('welcome', $route->getName());
+    }
+
     public function testGetMethodWithController()
     {
         $request = new ServerRequest('GET', '/welcome');
         $this->router->get('/welcome', '\App\Controllers\HomeController#index', 'welcome');
         $route = $this->router->match($request);
         $this->assertEquals([new HomeController(), 'index'], $route->getHandler());
-        $this->assertEquals('welcome', call_user_func_array($route->getHandler(), [$request]));
+        $this->assertEquals('welcome', call_user_func_array($route->getHandler(), [$request, ]));
     }
 
     public function testGetMethodNotFound()
@@ -46,6 +59,15 @@ class RouterTest extends TestCase
         $this->router->get('/welcome', '\App\Controllers\HomeController#welcome', 'welcome');
         $route = $this->router->match($request);
         $this->assertEquals(null, $route);
+    }
+
+    public function testPostMethod()
+    {
+        $request = new ServerRequest('POST', '/welcome');
+        $this->router->post('/welcome', function (){ return "Welcome"; }, 'welcome');
+        $route = $this->router->match($request);
+        $this->assertEquals('Welcome', call_user_func_array($route->getHandler(), []));
+        $this->assertEquals('welcome', $route->getName());
     }
 
 

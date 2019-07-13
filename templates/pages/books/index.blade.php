@@ -22,7 +22,7 @@
                         <td>{{ $book->title }}</td>
                         <td>{{ $book->author }}</td>
                         <td>
-                            <a href="" class="btn btn-primary">Voir</a>
+                            <a href="/books/{{ $book->slug }}" class="btn btn-primary">Voir</a>
                             <a href="" class="btn btn-danger">Supprimer</a>
                         </td>
                     </tr>

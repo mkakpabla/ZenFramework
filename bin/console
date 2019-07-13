@@ -1,0 +1,19 @@
+#!/usr/bin/env php
+<?php
+
+require dirname(__DIR__) . '/vendor/autoload.php';
+
+
+use Components\Commands\GenerateController;
+use Components\Commands\GenerateMiddleware;
+use Components\Commands\GenerateModel;
+use Symfony\Component\Console\Application;
+
+$application = new Application('ZenConsole', '1.0.0');
+
+
+$application->add(new GenerateController());
+$application->add(new GenerateMiddleware());
+$application->add(new GenerateModel());
+
+$application->run();

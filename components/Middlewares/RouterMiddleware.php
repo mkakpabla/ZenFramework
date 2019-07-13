@@ -41,7 +41,7 @@ class RouterMiddleware implements MiddlewareInterface
     {
         $route = $this->router->match($request);
         if ($route) {
-            $response =  call_user_func_array($route->getHandler(), [$request]);
+            $response =  call_user_func_array($route->getHandler(), [$request, $route->getAttributes()]);
             return new Response(200, [], $response);
         }
         return  $handler->handle($request);

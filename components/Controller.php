@@ -14,7 +14,7 @@ class Controller
     public function __construct()
     {
         $this->renderer = new Renderer(
-            dirname(__DIR__) . '/app/Views/',
+            dirname(__DIR__) . '/src/Views/',
             dirname(__DIR__) . '/cache//'
         );
 

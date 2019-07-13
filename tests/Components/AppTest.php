@@ -46,8 +46,8 @@ class AppTest extends TestCase
         $response = $app->run($request);
         $this->assertEquals('welcome', $response->getBody());
         $this->assertEquals(200, $response->getStatusCode());
-
     }
+
 
     public function testNotFound()
     {
