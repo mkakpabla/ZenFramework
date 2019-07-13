@@ -25,5 +25,5 @@ $capsule->setAsGlobal();
 // Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
 $capsule->bootEloquent();
 
-require implode(DIRECTORY_SEPARATOR, [dirname(__DIR__), "app", "routes.php"]);
+require implode(DIRECTORY_SEPARATOR, [dirname(__DIR__), "routes", "web.php"]);
 

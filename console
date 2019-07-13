@@ -1,12 +1,16 @@
 #!/usr/bin/env php
 <?php
 
-require dirname(__DIR__) . '/vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 
 
 use Components\Commands\GenerateController;
 use Components\Commands\GenerateMiddleware;
 use Components\Commands\GenerateModel;
+use Components\Commands\Phinx\GenerateMigration;
+use Components\Commands\Phinx\GenerateSeeder;
+use Components\Commands\Phinx\Migrate;
+use Components\Commands\Phinx\SeedRun;
 use Symfony\Component\Console\Application;
 
 $application = new Application('ZenConsole', '1.0.0');
@@ -15,5 +19,9 @@ $application = new Application('ZenConsole', '1.0.0');
 $application->add(new GenerateController());
 $application->add(new GenerateMiddleware());
 $application->add(new GenerateModel());
+$application->add(new Migrate());
+$application->add(new SeedRun());
+$application->add(new GenerateMigration());
+$application->add(new GenerateSeeder());
 
 $application->run();
