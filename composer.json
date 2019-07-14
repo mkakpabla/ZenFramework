@@ -30,7 +30,7 @@
             "Components\\": "components",
             "Test\\": "tests"
         },
-        "file": [
+        "files": [
             "components/functions.php"
         ]
     },

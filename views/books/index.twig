@@ -1,6 +1,6 @@
-@extends('layouts.app')
+{% extends('layouts/app.twig') %}
 
-@section('content')
+{% block content %}
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -17,17 +17,17 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($books as $book)
+                {% for book in books %}
                     <tr>
-                        <td>{{ $book->title }}</td>
-                        <td>{{ $book->author }}</td>
+                        <td>{{ book.title }}</td>
+                        <td>{{ book.author }}</td>
                         <td>
-                            <a href="/books/{{ $book->slug }}" class="btn btn-primary">Voir</a>
+                            <a href="/books/{{ book.slug }}" class="btn btn-primary">Voir</a>
                             <a href="" class="btn btn-danger">Supprimer</a>
                         </td>
                     </tr>
-                @endforeach
+                {% endfor %}
             </tbody>
         </table>
     </div>
-@endsection
+{% endblock %}

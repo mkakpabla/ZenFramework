@@ -17,9 +17,8 @@ class Controller
         $this->renderer = new Renderer(
             dirname(__DIR__) . '/views/',
             dirname(__DIR__) . '/cache/',
-            require dirname(__DIR__) . '/config/twig.php'
+            config('twig')
         );
-
     }
 
     protected function render(string  $view)
