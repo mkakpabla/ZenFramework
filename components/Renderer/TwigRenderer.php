@@ -7,7 +7,7 @@ use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 use Twig\Loader\FilesystemLoader;
 
-class Renderer implements RendererInterface
+class TwigRenderer implements RendererInterface
 {
 
     /***
@@ -23,17 +23,11 @@ class Renderer implements RendererInterface
 
     /***
      * Renderer constructor.
-     * @param string $viewPath
-     * @param string $cachePath
-     * @param array $extensions
+     * @param Environment $twig
      */
-    public function __construct(string $viewPath, string $cachePath, array $extensions = [])
+    public function __construct(Environment $twig)
     {
-        $this->loader = new FilesystemLoader($viewPath);
-        $this->twig = new Environment($this->loader, [
-            'cache' => false //$cachePath
-        ]);
-        $this->addExtension($extensions);
+        $this->twig = $twig;
     }
 
 
@@ -52,14 +46,9 @@ class Renderer implements RendererInterface
         return $this->twig->render($view, $data);
     }
 
-    /***
-     * Ajoute les extensions à twig
-     * @param array $extensions
-     */
-    public function addExtension(array $extensions): void
+    public function addGlobal($value)
     {
-        foreach ($extensions as $extension) {
-            $this->twig->addExtension($extension);
-        }
+        $this->twig->addGlobal('route', $value);
     }
+
 }

@@ -1,7 +1,7 @@
 <?php
 
-use Components\Extensions\RouteExtension;
+use Components\Extensions\TwigRouteExtension;
 
 return [
-    new RouteExtension()
+    new TwigRouteExtension()
 ];

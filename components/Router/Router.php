@@ -29,6 +29,11 @@ class Router
         $this->routerContainer->getMap()->post($name, $uri, $handler);
     }
 
+    public function uri(string $name, ?array $params = [])
+    {
+        return $name;
+    }
+
     public function match(ServerRequestInterface $request)
     {
         $matcher = $this->routerContainer->getMatcher();

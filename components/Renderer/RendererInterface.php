@@ -14,10 +14,5 @@ interface RendererInterface
     public function render(string $view, ?array $data = []): string;
 
 
-    /***
-     * Ajoute les extensions à twig
-     * @param array $extensions
-     */
-    public function addExtension(array $extensions): void;
 
 }

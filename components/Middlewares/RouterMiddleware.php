@@ -1,14 +1,12 @@
 <?php
 
-
 namespace Components\Middlewares;
 
-
-
-use App\Controllers\HomeController;
+use Components\Router\Route;
 use Components\Router\Router;
+use DI\ContainerBuilder;
 use GuzzleHttp\Psr7\Response;
-use function PHPSTORM_META\type;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -21,6 +19,10 @@ class RouterMiddleware implements MiddlewareInterface
      * @var Router
      */
     private $router;
+    /**
+     * @var ContainerInterface
+     */
+    private $container;
 
     public function __construct(Router $router)
     {
@@ -41,9 +43,24 @@ class RouterMiddleware implements MiddlewareInterface
     {
         $route = $this->router->match($request);
         if ($route) {
+            if (is_array($route->getHandler())) {
+
+                $response = $this->getContainer()->call($route->getHandler());
+                return new Response(200, [], $response);
+            }
             $response =  call_user_func_array($route->getHandler(), [$request, $route->getAttributes()]);
             return new Response(200, [], $response);
         }
         return  $handler->handle($request);
+    }
+
+
+    private function getContainer()
+    {
+        $builder = new ContainerBuilder();
+        $builder->addDefinitions(dirname(dirname(__DIR__)) . '/config/config.php');
+        $this->container = $builder->build();
+        $this->container->set(Router::class, $this->router);
+        return $this->container;
     }
 }

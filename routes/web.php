@@ -1,6 +1,5 @@
 <?php
 
-
 use Components\Router\Router;
 
 $router = new Router();

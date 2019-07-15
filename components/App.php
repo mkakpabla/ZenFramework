@@ -64,22 +64,6 @@ class App implements RequestHandlerInterface
     public function run(ServerRequestInterface $request): ResponseInterface
     {
         return $this->handle($request);
-        /*
-        $route = $this->router->match($request);
-        if (!$route) {
-            return new Response(404, [], '<h1>404 Not Found</h1>');
-        } else {
-            if (is_callable($route->getHandler())) {
-                $response =  call_user_func_array($route->getHandler(), [$request]);
-                return new Response(200, [], $response);
-            } elseif (is_string($route->getHandler())) {
-                $target = explode('#', $route->getHandler());
-                $controller = new $target[0]();
-                $action = $target[1];
-                $response = $controller->$action($request);
-                return new Response(200, [], $response);
-            }
-        }*/
     }
 
     /**

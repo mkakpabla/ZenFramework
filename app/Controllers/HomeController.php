@@ -10,10 +10,9 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 class HomeController extends Controller
 {
 
-
-    public function index(Request $request)
+    public function index()
     {
-        return $this->render('home.twig');
+        return 'welcome';
     }
 
 }

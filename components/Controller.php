@@ -1,28 +1,37 @@
 <?php
 namespace Components;
 
-
 use Components\Helpers\Redirect;
-use Components\Renderer\Renderer;
+use Components\Renderer\RendererInterface;
 
 class Controller
 {
     use Redirect;
 
+    /***
+     * @var RendererInterface
+     */
     public $renderer;
 
-
-    public function __construct()
+    /***
+     * Controller constructor.
+     * @param RendererInterface $renderer
+     */
+    public function __construct(RendererInterface $renderer)
     {
-        $this->renderer = new Renderer(
-            dirname(__DIR__) . '/views/',
-            dirname(__DIR__) . '/cache/',
-            config('twig')
-        );
+
+        $this->renderer = $renderer;
     }
 
-    protected function render(string  $view)
+    /***
+     * Permet de rendre une vue
+     * @param string $view
+     * @param array|null $data
+     * @return string
+     */
+    protected function render(string  $view, ?array $data = [])
     {
-        return $this->renderer->render($view);
+
+        return $this->renderer->render($view, $data);
     }
 }
