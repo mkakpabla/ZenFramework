@@ -6,10 +6,4 @@ use Illuminate\Database\Eloquent\Model;
 class PregReplace extends Model
 {
     protected $fillable = [];
-
-
-
-
-
-
 }

@@ -3,7 +3,6 @@
 
 namespace App\Controllers;
 
-
 use Components\Controller;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
@@ -14,5 +13,4 @@ class HomeController extends Controller
     {
         return 'welcome';
     }
-
 }

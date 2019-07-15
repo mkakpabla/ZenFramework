@@ -23,9 +23,3 @@ $app = new App([
 
 // Execution de l'application et send
 send($app->run(ServerRequest::fromGlobals()));
-
-
-
-
-
-

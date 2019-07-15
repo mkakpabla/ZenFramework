@@ -3,7 +3,6 @@
 
 namespace Components\Middlewares;
 
-
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Psr\Http\Message\ResponseInterface;

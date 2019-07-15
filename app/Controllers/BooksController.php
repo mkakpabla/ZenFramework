@@ -17,7 +17,7 @@ class BooksController extends Controller
         return $this->render('books.index', compact('books'));
     }
 
-    public function show(ServerRequestInterface $request, $slug)
+    public function show(string $slug)
     {
         $book = Book::where('slug', $slug)->firstOrFail();
         return $this->render('books.show', compact('book'));
@@ -31,8 +31,8 @@ class BooksController extends Controller
 
     public function store(ServerRequestInterface $request)
     {
+        dd($request->getParsedBody());
         Book::create($request->getParsedBody());
         self::to('/books');
     }
-
 }

@@ -50,5 +50,4 @@ class TwigRenderer implements RendererInterface
     {
         $this->twig->addGlobal('route', $value);
     }
-
 }

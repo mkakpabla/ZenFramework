@@ -19,7 +19,7 @@
                         <td class="py-4 px-6 border-b border-grey-light">{{ book.title }}</td>
                         <td class="py-4 px-6 border-b border-grey-light">{{ book.author }}</td>
                         <td class="py-4 px-6 border-b border-grey-light">
-                            <a href="#" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Voir</a>
+                            <a href="{{ route('books.show', {slug: book.slug}) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Voir</a>
                             <a href="#" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Supprimer</a>
                         </td>
                     </tr>

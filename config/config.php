@@ -3,9 +3,6 @@
 use Components\Extensions\TwigRouteExtension;
 use Components\Factory\TwigRendererFactory;
 use Components\Renderer\RendererInterface;
-use Components\Router\Route;
-use Components\Router\Router;
-use function DI\create;
 use function DI\factory;
 use function DI\get;
 use GuzzleHttp\Psr7\ServerRequest;

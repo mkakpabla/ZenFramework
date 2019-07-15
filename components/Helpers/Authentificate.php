@@ -7,7 +7,7 @@ trait Authentificate
 
     public static function authentificate()
     {
-        if(!isset($_SESSION['auth'])) {
+        if (!isset($_SESSION['auth'])) {
             header("Location: /admin/login");
             exit();
         }
@@ -16,10 +16,9 @@ trait Authentificate
 
     public static function guest()
     {
-        if(isset($_SESSION['auth'])) {
+        if (isset($_SESSION['auth'])) {
             header("Location: /admin/properties");
             exit();
         }
     }
-
 }

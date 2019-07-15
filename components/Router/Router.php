@@ -16,7 +16,6 @@ class Router
     public function __construct()
     {
         $this->routerContainer = new RouterContainer();
-
     }
 
     public function get(string $uri, $handler, string $name)
@@ -31,7 +30,7 @@ class Router
 
     public function uri(string $name, ?array $params = [])
     {
-        return $name;
+        return $this->routerContainer->getGenerator()->generate($name, $params);
     }
 
     public function match(ServerRequestInterface $request)
@@ -39,11 +38,8 @@ class Router
         $matcher = $this->routerContainer->getMatcher();
         $route = $matcher->match($request);
         if ($route) {
-            return new Route($route->name,  $route->attributes, $route->handler);
+            return new Route($route->name, $route->attributes, $route->handler);
         }
         return null;
     }
-
-
-
 }

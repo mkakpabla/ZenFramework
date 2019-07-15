@@ -3,7 +3,6 @@
 
 namespace Components;
 
-
 class Eloquent
 {
 

@@ -1,7 +1,6 @@
 <?php
 namespace Components;
 
-
 use PDO;
 
 /**
@@ -51,7 +50,7 @@ class Database
     public function getPDO(): PDO
     {
         if ($this->pdo === null) {
-            $pdo = new PDO('mysql:host='.$this->db_host.';dbname='.$this->db_name,$this->db_user,$this->db_password);
+            $pdo = new PDO('mysql:host='.$this->db_host.';dbname='.$this->db_name, $this->db_user, $this->db_password);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
             $this->pdo = $pdo;

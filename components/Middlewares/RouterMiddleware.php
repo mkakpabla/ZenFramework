@@ -7,6 +7,7 @@ use Components\Router\Router;
 use DI\ContainerBuilder;
 use GuzzleHttp\Psr7\Response;
 use Psr\Container\ContainerInterface;
+use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -23,6 +24,8 @@ class RouterMiddleware implements MiddlewareInterface
      * @var ContainerInterface
      */
     private $container;
+
+
 
     public function __construct(Router $router)
     {
@@ -44,8 +47,7 @@ class RouterMiddleware implements MiddlewareInterface
         $route = $this->router->match($request);
         if ($route) {
             if (is_array($route->getHandler())) {
-
-                $response = $this->getContainer()->call($route->getHandler());
+                $response = $this->getContainer()->call($route->getHandler(), $route->getAttributes());
                 return new Response(200, [], $response);
             }
             $response =  call_user_func_array($route->getHandler(), [$request, $route->getAttributes()]);

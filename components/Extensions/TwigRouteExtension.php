@@ -3,7 +3,6 @@
 
 namespace Components\Extensions;
 
-
 use Components\Router\Router;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -31,5 +30,4 @@ class TwigRouteExtension extends AbstractExtension
     {
         return $this->router->uri($name, $params);
     }
-
 }

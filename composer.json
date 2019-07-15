@@ -23,7 +23,8 @@
         "middlewares/whoops": "^1.2",
         "illuminate/pagination": "^5.8",
         "twig/twig": "^2.11",
-        "php-di/php-di": "^6.0"
+        "php-di/php-di": "^6.0",
+        "squizlabs/php_codesniffer": "^3.4"
     },
     "autoload": {
         "psr-4": {

@@ -15,15 +15,16 @@ class GenerateController extends Command
         $this->setName('make:controller');
         $this->addArgument("name", InputArgument::REQUIRED, 'Nom du controller');
         $this->setDescription('Génère une classe controller');
-
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $name = $input->getArgument('name');
         $text = file_get_contents(__DIR__ . '/templates/controller.template.php');
-        file_put_contents(dirname(dirname(__DIR__)) . '/app/Controllers/' .$name.'.php', preg_replace('/PregReplace/', "$name", $text));
+        file_put_contents(
+            dirname(dirname(__DIR__)) . '/app/Controllers/' .$name.'.php',
+            preg_replace('/PregReplace/', "$name", $text)
+        );
         $output->writeln("Controller généré");
     }
-
 }

@@ -15,15 +15,16 @@ class GenerateModel extends Command
         $this->setName('make:model');
         $this->addArgument("name", InputArgument::REQUIRED, 'Nom du model');
         $this->setDescription('Génère une classe model');
-
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $name = $input->getArgument('name');
         $text = file_get_contents(__DIR__ . '/templates/model.template.php');
-        file_put_contents(dirname(dirname(__DIR__)) . '/app/Models/' .$name.'.php', preg_replace('/PregReplace/', "$name", $text));
+        file_put_contents(
+            dirname(dirname(__DIR__)) . '/app/Models/' .$name.'.php',
+            preg_replace('/PregReplace/', "$name", $text)
+        );
         $output->writeln("Model généré");
     }
-
 }

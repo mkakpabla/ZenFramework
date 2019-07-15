@@ -1,7 +1,6 @@
 <?php
 namespace Components\Renderer;
 
-
 interface RendererInterface
 {
 
@@ -12,7 +11,4 @@ interface RendererInterface
      * @return string
      */
     public function render(string $view, ?array $data = []): string;
-
-
-
 }

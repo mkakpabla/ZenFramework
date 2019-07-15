@@ -3,7 +3,6 @@
 
 namespace Components\Router;
 
-
 /**
  * Représente une route
  * Class Route
@@ -48,11 +47,11 @@ class Route
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getAttributes(): string
+    public function getAttributes(): array
     {
-        return implode(',', $this->attributes);
+        return $this->attributes;
     }
 
     /**
@@ -68,5 +67,4 @@ class Route
         }
         return $this->handler;
     }
-
 }
