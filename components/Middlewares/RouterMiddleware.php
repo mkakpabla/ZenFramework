@@ -2,12 +2,11 @@
 
 namespace Components\Middlewares;
 
-use Components\Router\Route;
 use Components\Router\Router;
+use DI\Container;
 use DI\ContainerBuilder;
+use Exception;
 use GuzzleHttp\Psr7\Response;
-use Psr\Container\ContainerInterface;
-use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -20,11 +19,6 @@ class RouterMiddleware implements MiddlewareInterface
      * @var Router
      */
     private $router;
-    /**
-     * @var ContainerInterface
-     */
-    private $container;
-
 
 
     public function __construct(Router $router)
@@ -41,6 +35,7 @@ class RouterMiddleware implements MiddlewareInterface
      * @param ServerRequestInterface $request
      * @param RequestHandlerInterface $handler
      * @return ResponseInterface
+     * @throws Exception
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
@@ -49,20 +44,28 @@ class RouterMiddleware implements MiddlewareInterface
             if (is_array($route->getHandler())) {
                 $response = $this->getContainer()->call($route->getHandler(), $route->getAttributes());
                 return new Response(200, [], $response);
+            } elseif (is_callable($route->getHandler())) {
+                $response =  $this->getContainer()->call($route->getHandler(), $route->getAttributes());
+                return new Response(200, [], $response);
+            } else {
+                throw new Exception('Handler is not type array or callable');
             }
-            $response =  call_user_func_array($route->getHandler(), [$request, $route->getAttributes()]);
-            return new Response(200, [], $response);
         }
         return  $handler->handle($request);
     }
 
 
+    /**
+     * Renvoie une instance du container
+     * @return Container
+     * @throws Exception
+     */
     private function getContainer()
     {
         $builder = new ContainerBuilder();
         $builder->addDefinitions(dirname(dirname(__DIR__)) . '/config/config.php');
-        $this->container = $builder->build();
-        $this->container->set(Router::class, $this->router);
-        return $this->container;
+        $container = $builder->build();
+        $container->set(Router::class, $this->router);
+        return $container;
     }
 }

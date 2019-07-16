@@ -3,6 +3,8 @@
 
 namespace Components\Router;
 
+use Exception;
+
 /**
  * Représente une route
  * Class Route
@@ -55,14 +57,18 @@ class Route
     }
 
     /**
-     * @return callable|string
+     * @return callable|array
      */
     public function getHandler()
     {
         if (is_string($this->handler)) {
-            $target = explode('#', $this->handler);
-            $controller = $target[0];
-            $action = $target[1];
+            try {
+                $target = explode('#', $this->handler);
+                $controller = $target[0];
+                $action = $target[1];
+            } catch (Exception $e) {
+                return $e->getMessage();
+            }
             return [$controller, $action];
         }
         return $this->handler;

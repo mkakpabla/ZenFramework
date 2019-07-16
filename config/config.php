@@ -11,6 +11,7 @@ use Psr\Http\Message\ServerRequestInterface;
 return [
     'view.path' => dirname(__DIR__) . '/views',
     'cache.path' => dirname(__DIR__) . '/cache',
+    
     // Extensions Twig
     'twig.extensions' => [
         get(TwigRouteExtension::class)
