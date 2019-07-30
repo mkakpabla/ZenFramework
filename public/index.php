@@ -9,6 +9,7 @@ use GuzzleHttp\Psr7\ServerRequest;
 use function Http\Response\send;
 use Middlewares\Whoops;
 
+
 // Equire du fichier bootstrap.php
 require implode(DIRECTORY_SEPARATOR, [dirname(__DIR__), "config", "bootstrap.php"]);
 

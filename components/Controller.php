@@ -19,7 +19,6 @@ class Controller
      */
     public function __construct(RendererInterface $renderer)
     {
-
         $this->renderer = $renderer;
     }
 
@@ -31,7 +30,7 @@ class Controller
      */
     protected function render(string  $view, ?array $data = [])
     {
-
         return $this->renderer->render($view, $data);
     }
+
 }

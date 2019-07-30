@@ -9,8 +9,6 @@ use Psr\Http\Message\ServerRequestInterface;
 class BooksController extends Controller
 {
 
-
-
     public function index(ServerRequestInterface $request)
     {
         $books = Book::all();
@@ -31,7 +29,6 @@ class BooksController extends Controller
 
     public function store(ServerRequestInterface $request)
     {
-        dd($request->getParsedBody());
         Book::create($request->getParsedBody());
         self::to('/books');
     }

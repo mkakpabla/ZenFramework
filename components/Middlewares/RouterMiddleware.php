@@ -14,7 +14,6 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 class RouterMiddleware implements MiddlewareInterface
 {
-
     /**
      * @var Router
      */
