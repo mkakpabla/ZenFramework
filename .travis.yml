@@ -12,7 +12,6 @@ php:
 # optionally specify a list of environments, for example to test different RDBMS
 env:
   - DB=mysql
-  - DB=pgsql
 
 # optionally set up exclusions and allowed failures in the matrix
 matrix:
@@ -25,8 +24,6 @@ matrix:
 
 # execute any number of scripts before the test run, custom env's are available as variables
 before_script:
-  - if [[ "$DB" == "pgsql" ]]; then psql -c "DROP DATABASE IF EXISTS hello_world_test;" -U postgres; fi
-  - if [[ "$DB" == "pgsql" ]]; then psql -c "create database hello_world_test;" -U postgres; fi
   - if [[ "$DB" == "mysql" ]]; then mysql -e "create database IF NOT EXISTS hello_world_test;" -uroot; fi
 
 # omitting "script:" will default to phpunit
