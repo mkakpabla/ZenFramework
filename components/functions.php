@@ -9,6 +9,5 @@ if (!function_exists('config')) {
 if (!function_exists('redirect')) {
     function redirect(string $routeName)
     {
-
     }
 }
