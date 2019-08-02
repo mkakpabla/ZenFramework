@@ -3,6 +3,7 @@
 
 namespace Components;
 
+use Components\Router\Annotation\Reader;
 use Components\Router\Router;
 use DI\Container;
 use DI\ContainerBuilder;
@@ -14,11 +15,10 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use tyesty\RoutingAnnotationReader\Reader;
 
 /**
  * Class App
- * @package Core
+ * @package Components
  */
 class App implements RequestHandlerInterface
 {
