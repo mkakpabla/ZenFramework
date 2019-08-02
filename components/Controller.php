@@ -29,5 +29,4 @@ class Controller
     {
         return $this->renderer->render($view, $data);
     }
-
 }
