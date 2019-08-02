@@ -36,7 +36,9 @@ class RouterMiddleware implements MiddlewareInterface
         $route = $this->router->match($request);
         if ($route) {
             if (is_array($route->getHandler())) {
-                $response = $this->container->call($route->getHandler(), $route->getAttributes());
+                $params = $route->getAttributes();
+                $params['request'] = $request;
+                $response = $this->container->call($route->getHandler(), $params);
                 return new Response(200, [], $response);
             } elseif (is_callable($route->getHandler())) {
                 $response =  $this->container->call($route->getHandler(), $route->getAttributes());

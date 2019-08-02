@@ -1,0 +1,30 @@
+{% extends('layouts/app.twig') %}
+
+{% block content %}
+
+    <div class="container">
+        <h1>S'inscrire</h1>
+        <form action="{{ route('users.store') }}" method="post">
+            <div class="form-group">
+                <label for="username">Nom d'utilisateur</label>
+                <input id="username" class="form-control" name="username" type="text">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input id="email" class="form-control" name="email" type="text">
+            </div>
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <input id="password" class="form-control" name="password" type="password">
+            </div>
+            <div class="form-group">
+                <label for="c_password">RE: Mot de passe</label>
+                <input id="c_password" class="form-control" name="c_password" type="password">
+            </div>
+
+            <button class="btn btn-block btn-primary">S'incrire</button>
+        </form>
+    </div>
+    
+{% endblock %}
+

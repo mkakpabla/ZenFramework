@@ -1,27 +1,19 @@
 <?php
 
-use Dotenv\Dotenv;
+use Components\Env;
 
-require __DIR__. '/vendor/autoload.php';
-
-$env = __DIR__. '/.env';
-
-if(file_exists($env)) {
-    // Initialisation du .env
-    $dotenv = Dotenv::create(__DIR__);
-    $dotenv->load();
-}
-
-if(getenv('APP_ENV') == "development"){
+include __DIR__. '/vendor/autoload.php';
+Env::load();
+if (getenv('APP_ENV') == "development") {
     $database_default = "development";
-}elseif(getenv('APP_ENV') == "production"){
+} elseif (getenv('APP_ENV') == "production") {
     $database_default = "production";
 }
 
 return [
     'paths' => [
-        'migrations' => __DIR__ . '/app/Database/Migrations',
-        'seeds' => __DIR__ . '/app/Database/Seeds'
+        'migrations' => __DIR__ . '/database/migrations',
+        'seeds' => __DIR__ . '/database/seeds'
     ],
     'environments' => [
         'default_database' => $database_default,
