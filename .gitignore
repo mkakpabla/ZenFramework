@@ -1,6 +1,7 @@
+composer.lock
 .idea
 .git
 .phpunit.result.cache
 vendor
 tmp
-composer.lock
+
