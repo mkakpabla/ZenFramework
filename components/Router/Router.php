@@ -4,13 +4,19 @@
 namespace Components\Router;
 
 use Aura\Router\RouterContainer;
+use Exception;
 use GuzzleHttp\Psr7\Response;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 class Router
 {
 
     private $routerContainer;
+    /**
+     * @var ContainerInterface
+     */
+    private $container;
 
 
     public function __construct()
@@ -33,6 +39,20 @@ class Router
         return $this->routerContainer->getGenerator()->generate($name, $params);
     }
 
+
+
+    public function addRoutes(array $routes)
+    {
+        foreach ($routes as $route) {
+            $method = $route['method'];
+            $url = $route['route'];
+            $action = $route['action'];
+            $name = $route['name'];
+            $this->$method($url, $action, $name);
+        }
+        return $this;
+    }
+
     public function match(ServerRequestInterface $request)
     {
         $matcher = $this->routerContainer->getMatcher();
@@ -42,4 +62,22 @@ class Router
         }
         return null;
     }
+
+/*
+    public function run(ServerRequestInterface $request)
+    {
+        $route = $this->match($request);
+        if ($route) {
+            if (is_array($route->getHandler())) {
+                $response = $this->container->call($route->getHandler(), $route->getAttributes());
+                return new Response(200, [], $response);
+            } elseif (is_callable($route->getHandler())) {
+                $response =  $this->container->call($route->getHandler(), $route->getAttributes());
+                return new Response(200, [], $response);
+            } else {
+                throw new Exception('Handler is not type array or callable');
+            }
+        }
+    }
+    */
 }

@@ -14,7 +14,7 @@ class GenerateModel extends Command
     {
         $this->setName('make:model');
         $this->addArgument("name", InputArgument::REQUIRED, 'Nom du model');
-        $this->setDescription('Génère une classe model');
+        $this->setDescription('Create a new model');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

@@ -13,8 +13,8 @@ class GenerateMiddleware extends Command
     protected function configure()
     {
         $this->setName('make:middleware');
-        $this->addArgument("name", InputArgument::REQUIRED, 'Nom du middleware');
-        $this->setDescription('Génère une classe middleware');
+        $this->addArgument("name", InputArgument::REQUIRED, 'middleware name');
+        $this->setDescription('Create a new middleware');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -22,7 +22,7 @@ class GenerateMiddleware extends Command
         $name = $input->getArgument('name');
         $text = file_get_contents(__DIR__ . '/templates/middleware.template.php');
         file_put_contents(
-            dirname(dirname(__DIR__)) . '/app/Middlewares/' .$name.'.php',
+            dirname(dirname(__DIR__)) . '/components/Middlewares/' .$name.'.php',
             preg_replace('/PregReplace/', "$name", $text)
         );
         $output->writeln("Middleware généré");

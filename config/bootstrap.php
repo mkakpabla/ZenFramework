@@ -1,16 +1,14 @@
 <?php
-require "../vendor/autoload.php";
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Container\Container;
 
-
-$config =  require 'database.php';
+include 'database.php';
 
 $capsule = new Capsule;
 
-$capsule->addConnection($config);
+$capsule->addConnection($database[getenv('DB_CONNECTION')]);
 
 
 // Make this Capsule instance available globally via static methods... (optional)
@@ -24,8 +22,3 @@ $capsule->setAsGlobal();
 
 // Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
 $capsule->bootEloquent();
-
-require implode(DIRECTORY_SEPARATOR, [dirname(__DIR__), "routes", "web.php"]);
-
-require implode(DIRECTORY_SEPARATOR, [dirname(__DIR__), "routes", "api.php"]);
-

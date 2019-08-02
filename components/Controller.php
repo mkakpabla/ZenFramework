@@ -1,13 +1,10 @@
 <?php
 namespace Components;
 
-use Components\Helpers\Redirect;
 use Components\Renderer\RendererInterface;
 
 class Controller
 {
-    use Redirect;
-
     /***
      * @var RendererInterface
      */

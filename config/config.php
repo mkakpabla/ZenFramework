@@ -3,6 +3,7 @@
 use Components\Extensions\TwigRouteExtension;
 use Components\Factory\TwigRendererFactory;
 use Components\Renderer\RendererInterface;
+use Components\Router\Router;
 use function DI\factory;
 use function DI\get;
 use GuzzleHttp\Psr7\ServerRequest;
@@ -17,5 +18,6 @@ return [
         get(TwigRouteExtension::class)
     ],
     ServerRequestInterface::class => ServerRequest::fromGlobals(),
-    RendererInterface::class => factory(TwigRendererFactory::class)
+    RendererInterface::class => factory(TwigRendererFactory::class),
+    Router::class => \DI\autowire()
 ];

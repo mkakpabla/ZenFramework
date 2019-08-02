@@ -1,13 +1,7 @@
 <?php
-use Dotenv\Dotenv;
+use Components\Env;
 
-$env = dirname(__DIR__)."/.env";
-
-if(file_exists($env)) {
-    // Initialisation du .env
-    $dotenv = Dotenv::create(dirname(__DIR__));
-    $dotenv->load();
-}
+Env::load();
 $database  =  [
     "mysql" => [
         'driver'   => 'mysql',
@@ -34,5 +28,3 @@ $database  =  [
         'path'   => 'data/poll.sqlite'
     ]
 ];
-
-return $database['mysql'];

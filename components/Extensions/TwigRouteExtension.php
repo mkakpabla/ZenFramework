@@ -3,6 +3,7 @@
 
 namespace Components\Extensions;
 
+use Aura\Router\Exception;
 use Components\Router\Router;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -28,6 +29,9 @@ class TwigRouteExtension extends AbstractExtension
 
     public function route(string $name, ?array $params = [])
     {
-        return $this->router->uri($name, $params);
+        try {
+            return $this->router->uri($name, $params);
+        } catch (\Exception $e) {
+        }
     }
 }

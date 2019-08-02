@@ -13,17 +13,19 @@ class GenerateController extends Command
     protected function configure()
     {
         $this->setName('make:controller');
-        $this->addArgument("name", InputArgument::REQUIRED, 'Nom du controller');
-        $this->setDescription('Génère une classe controller');
+        $this->addArgument("name", InputArgument::REQUIRED, 'controller name');
+        $this->addArgument("route", InputArgument::REQUIRED, 'controller route base name');
+        $this->setDescription('Create a new controller');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $name = $input->getArgument('name');
+        $route = $input->getArgument('route');
         $text = file_get_contents(__DIR__ . '/templates/controller.template.php');
         file_put_contents(
             dirname(dirname(__DIR__)) . '/app/Controllers/' .$name.'.php',
-            preg_replace('/PregReplace/', "$name", $text)
+            preg_replace(['/PregReplace/', '/baseroute/'], [$name, $route], $text)
         );
         $output->writeln("Controller généré");
     }

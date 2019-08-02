@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "72e427ea897b3fcef2e9c59c5f3fb8fd",
+    "content-hash": "4e2279a09d744328953d91cfdebd6587",
     "packages": [
         {
             "name": "aura/router",
@@ -2543,6 +2543,42 @@
                 "templating"
             ],
             "time": "2019-06-18T15:37:11+00:00"
+        },
+        {
+            "name": "tyesty/routing-annotation-reader",
+            "version": "1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tyesty/routing-annotation-reader.git",
+                "reference": "0e459f0d4752955619e5987b94d8c07aa94e5ef6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tyesty/routing-annotation-reader/zipball/0e459f0d4752955619e5987b94d8c07aa94e5ef6",
+                "reference": "0e459f0d4752955619e5987b94d8c07aa94e5ef6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "tyesty\\RoutingAnnotationReader\\": "src/tyesty/RoutingAnnotationReader/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tobias Stursberg",
+                    "email": "tobias@stursberg.de"
+                }
+            ],
+            "description": "Controller class annotation reader for collecting routes",
+            "time": "2018-06-08T13:19:15+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

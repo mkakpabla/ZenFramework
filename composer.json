@@ -25,17 +25,15 @@
         "twig/twig": "^2.11",
         "php-di/php-di": "^6.0",
         "squizlabs/php_codesniffer": "^3.4",
-        "rakit/validation": "^1.2"
+        "rakit/validation": "^1.2",
+        "tyesty/routing-annotation-reader": "^1.2"
     },
     "autoload": {
         "psr-4": {
             "App\\": "app",
             "Components\\": "components",
             "Test\\": "tests"
-        },
-        "files": [
-            "components/functions.php"
-        ]
+        }
     },
     "require-dev": {
         "robmorgan/phinx": "^0.10.7",

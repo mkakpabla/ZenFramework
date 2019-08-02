@@ -3,12 +3,18 @@
 
 namespace Components;
 
+use Components\Router\Router;
+use DI\Container;
+use DI\ContainerBuilder;
+use DI\DependencyException;
+use DI\NotFoundException;
 use Exception;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use tyesty\RoutingAnnotationReader\Reader;
 
 /**
  * Class App
@@ -27,16 +33,19 @@ class App implements RequestHandlerInterface
      * @var int
      */
     private $index = 0;
+    /**
+     * @var Container
+     */
+    private $container;
 
     /**
      * App constructor.
-     * @param array $middlewares
+     * @throws DependencyException
+     * @throws NotFoundException
      */
-    public function __construct(array $middlewares)
+    public function __construct()
     {
-        foreach ($middlewares as $middleware) {
-            $this->middlewares[] = $middleware;
-        }
+        $this->getContainer()->get(Router::class)->addRoutes($this->getRoutes());
     }
 
     /**
@@ -56,6 +65,11 @@ class App implements RequestHandlerInterface
         }
     }
 
+    public function pipe(string $middleware)
+    {
+        $this->middlewares[] = $middleware;
+        return $this;
+    }
     /**
      * @param ServerRequestInterface $request
      * @return Response
@@ -68,14 +82,37 @@ class App implements RequestHandlerInterface
 
     /**
      * @return object
+     * @throws DependencyException
+     * @throws NotFoundException
      */
     private function getMiddleware()
     {
         if (array_key_exists($this->index, $this->middlewares)) {
-            $middleware = $this->middlewares[$this->index];
+            $middleware = $this->container->get($this->middlewares[$this->index]);
             $this->index++;
             return $middleware;
         }
         return null;
+    }
+
+
+    private function getRoutes()
+    {
+        $reader = new Reader([dirname(__DIR__) . '/app']);
+        $reader->run();
+        return $reader->getRoutes();
+    }
+
+    /**
+     * Renvoie une instance du container
+     * @return Container
+     * @throws Exception
+     */
+    private function getContainer()
+    {
+        $builder = new ContainerBuilder();
+        $builder->addDefinitions(dirname(__DIR__) . '/config/config.php');
+        $this->container = $builder->build();
+        return $this->container;
     }
 }
