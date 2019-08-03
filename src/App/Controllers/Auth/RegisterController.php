@@ -38,4 +38,3 @@ class RegisterController extends Controller
         return $this->redirect('login.create');
     }
 }
-

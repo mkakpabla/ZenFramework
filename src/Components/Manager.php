@@ -17,5 +17,4 @@ class Manager
     {
         $this->pdo = $pdo;
     }
-
 }

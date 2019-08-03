@@ -9,3 +9,4 @@ install:
 
 script:
   - ./vendor/bin/phpunit --colors --coverage-text
+  - .\vendor\bin\phpcs

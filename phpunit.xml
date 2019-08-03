@@ -7,7 +7,7 @@
 
     <filter>
         <whitelist>
-            <directory>components</directory>
+            <directory>src/Components</directory>
         </whitelist>
     </filter>
 </phpunit>

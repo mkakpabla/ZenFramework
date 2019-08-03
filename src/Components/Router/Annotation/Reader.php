@@ -94,8 +94,7 @@ class Reader implements ReaderInterface
      * @param null|string       $route_log              Complete path to the log file (incl. filename)
      * @param null|callable     $log_function           Callable for logging/documenting/etc.
      *
-     * @throws \ReflectionException
-     */
+   */
     public function __construct(array $directories, ?string $route_log = null, ?callable $log_function = null)
     {
         $this->directories = $directories;
@@ -155,9 +154,8 @@ class Reader implements ReaderInterface
             if ($this->routeLog !== null) {
                 $this->writeRouteLog();
             }
-        }
-        // otherwise just load the cached routes
-        else {
+        } else {
+            // otherwise just load the cached routes
             require_once($this->cacheFolder.DIRECTORY_SEPARATOR."__CACHE__routes.php");
         }
     }
@@ -171,17 +169,24 @@ class Reader implements ReaderInterface
         // walk through all the directories
         foreach ($this->directories as $s_directory) {
             // and look for files ending with "{$this->classPostfix}.php"
+
             $_o_rec = new \RecursiveDirectoryIterator(realpath($s_directory));
+
             $_o_it = new \RecursiveIteratorIterator($_o_rec);
-            $a_regex = new \RegexIterator($_o_it, '/^.+' . $this->classPostfix . '\.php$/i', \RecursiveRegexIterator::GET_MATCH);
+
+            $a_regex = new \RegexIterator(
+                $_o_it,
+                '/^.+' . $this->classPostfix . '\.php$/i',
+                \RecursiveRegexIterator::GET_MATCH
+            );
 
             // walk through all the controller files and build up a list of classes
             foreach ($a_regex as $s_filename => $foo) {
                 // fetch the namespace and the class name
                 $s_classcontent = file_get_contents($s_filename);
+
                 preg_match("/\s+namespace\s+(.*?);/i", $s_classcontent, $a_namespace);
                 preg_match("/\s+class\s+(.*?)[\s\{]/i", $s_classcontent, $a_classname);
-
                 // and add it to the class list
                 $this->classlist[] = trim($a_namespace[1]) . "\\" . trim($a_classname[1]);
             }
@@ -210,10 +215,17 @@ class Reader implements ReaderInterface
                 // and the base middlewares
                 $a_base_middlewares = [];
                 $_a_base_mw = [];
-                preg_match_all("/@Middleware\s+(.*?)\s+/i", $o_reflection->getDocComment(), $_a_base_mw, PREG_SET_ORDER);
+                preg_match_all(
+                    "/@Middleware\s+(.*?)\s+/i",
+                    $o_reflection->getDocComment(),
+                    $_a_base_mw,
+                    PREG_SET_ORDER
+                );
                 foreach ($_a_base_mw as $a_base_mw) {
                     $a_base_middlewares[] = trim($a_base_mw[1]);
                 }
+            } else {
+                throw new \Exception("Base Route not defied for $s_classname");
             }
 
             // walk through all the methods
@@ -239,7 +251,12 @@ class Reader implements ReaderInterface
                     $a_middlewares = array_unique($a_middlewares);
 
                     // get the method comment and fetch the route
-                    preg_match_all("/@Route\s+\[(.*?)\]\s+(.*?)\s+(\((.*?)\))?/i", $s_method_comment, $a_m_comment, PREG_SET_ORDER);
+                    preg_match_all(
+                        "/@Route\s+\[(.*?)\]\s+(.*?)\s+(\((.*?)\))?/i",
+                        $s_method_comment,
+                        $a_m_comment,
+                        PREG_SET_ORDER
+                    );
 
                     foreach ((array)$a_m_comment as $a_comment) {
                         // clean route part, method and name values (cast name to string, because it can be NULL)
@@ -253,18 +270,26 @@ class Reader implements ReaderInterface
                         $s_route = preg_replace("/\/{2,}/is", "/", $s_base_route . $a_comment[2]);
 
                         // check for route or name collisions
-                        array_walk($this->routes, function ($route, $key) use ($s_method, $s_name, $s_route, $s_action) {
+                        array_walk(
+                            $this->routes,
+                            function ($route, $key) use ($s_method, $s_name, $s_route, $s_action) {
 
                             // check for route collision
-                            if ($route["method"] === $s_method && $route["route"] === $s_route) {
-                                throw new \Exception("Route collision detected: " . $s_method . " " . $s_route . " in " . $s_action);
-                            }
+                                if ($route["method"] === $s_method && $route["route"] === $s_route) {
+                                    throw new \Exception(
+                                        "Route collision detected: " . $s_method . " " . $s_route . " in " . $s_action
+                                    );
+                                }
 
                             // check for name collision
-                            if ($route["name"] === $s_name && $s_name !== "") {
-                                throw new \Exception("Route name collision detected: " . $s_method . " " . $s_route . " in " . $s_action);
+                                if ($route["name"] === $s_name && $s_name !== "") {
+                                    throw new \Exception(
+                                        "Route name collision detected: "
+                                        . $s_method . " " . $s_route . " in " . $s_action
+                                    );
+                                }
                             }
-                        });
+                        );
 
                         // no collision, then add the route to the routes list
                         $this->routes[] = [
@@ -311,10 +336,21 @@ class Reader implements ReaderInterface
             $s_log .= "<h4>autogenerated on " . date("Y-m-d H:i:s") . "</h4>\n";
             $s_log .= "<hr/>\n";
 
-            $s_log .= "<table>\n\t<tr>\n\t\t<td><b>Method</b></td>\n\t\t<td><b>Route</b></td>\n\t\t<td><b>Name</b></td>\n\t\t<td><b>Action</b></td>\n\t</tr>\n";
+            $s_log .= "<table>
+                            <tr>
+                                <td><b>Method</b></td>
+                                <td><b>Route</b></td>
+                                <td><b>Name</b></td>
+                                <td><b>Action</b></td>
+                            </tr>";
 
             foreach ($this->routes as $a_route) {
-                $s_log .= "\t<tr>\n\t\t<td>" . strtoupper($a_route["method"]) . "</td>\n\t\t<td>" . $a_route["route"] . "</td>\n\t\t<td>" . $a_route["name"] . "</td>\n\t\t<td>" . $a_route["action"] . "</td>\n\t</tr>";
+                $s_log .= "<tr>
+                            <td>" . strtoupper($a_route["method"]) . "</td>
+                            <td>" . $a_route["route"] . "</td>
+                            <td>" . $a_route["name"] . "</td>
+                            <td>" . $a_route["action"] . "</td>
+                          </tr>";
             }
 
             $s_log .= "</table>\n</body>\n</html>";
