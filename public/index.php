@@ -12,8 +12,7 @@ use function Http\Response\send;
 use Middlewares\Whoops;
 
 // Création d'un application
-$app = (new App())
-    //->pipe(AddRoutesMiddleware::class)
+$app = (new App(dirname(__DIR__) . '/config/config.php'))
     ->pipe(Whoops::class)
     ->pipe(TraillingSlashMiddleware::class)
     ->pipe(RouterMiddleware::class)

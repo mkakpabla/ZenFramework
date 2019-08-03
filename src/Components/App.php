@@ -38,6 +38,7 @@ class App implements RequestHandlerInterface
      */
     private $container;
 
+
     /**
      * App constructor.
      * @throws DependencyException
@@ -98,7 +99,7 @@ class App implements RequestHandlerInterface
 
     private function getRoutes()
     {
-        $reader = new Reader([dirname(__DIR__) . '/app']);
+        $reader = new Reader($this->container->get('controller.path'));
         $reader->run();
         return $reader->getRoutes();
     }
@@ -111,7 +112,7 @@ class App implements RequestHandlerInterface
     private function getContainer()
     {
         $builder = new ContainerBuilder();
-        $builder->addDefinitions(dirname(__DIR__) . '/config/config.php');
+        $builder->addDefinitions(dirname(dirname(__DIR__)). '/config/config.php');
         $this->container = $builder->build();
         return $this->container;
     }

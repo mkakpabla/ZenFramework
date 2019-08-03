@@ -13,7 +13,7 @@ return [
     'cache.path' => dirname(__DIR__) . '/cache',
 
     // Controller path
-    'controller.path' => [dirname(__DIR__) . '/app'],
+    'controller.path' => [dirname(__DIR__) . '/src/App/Controllers'],
 
     // Extensions Twig
     'twig.extensions' => [
