@@ -3,6 +3,7 @@
 require "../vendor/autoload.php";
 
 use Components\App;
+use Components\Middlewares\AddRoutesMiddleware;
 use Components\Middlewares\NotFoundMiddleware;
 use Components\Middlewares\RouterMiddleware;
 use Components\Middlewares\TraillingSlashMiddleware;
@@ -12,11 +13,12 @@ use Middlewares\Whoops;
 
 // Création d'un application
 $app = (new App())
+    //->pipe(AddRoutesMiddleware::class)
     ->pipe(Whoops::class)
     ->pipe(TraillingSlashMiddleware::class)
     ->pipe(RouterMiddleware::class)
     ->pipe(NotFoundMiddleware::class)
     ->run(ServerRequest::fromGlobals());
 
-// Execution de l'application et send
+// Affichage de la reponse
 send($app);

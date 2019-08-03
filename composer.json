@@ -9,6 +9,7 @@
         }
     ],
     "require": {
+        "propel/propel": "~2.0@dev",
         "vlucas/phpdotenv": "^3.4",
         "aura/router": "^3.1",
         "guzzlehttp/psr7": "^1.6",

@@ -22,7 +22,7 @@ class GenerateModel extends Command
         $name = $input->getArgument('name');
         $text = file_get_contents(__DIR__ . '/templates/model.template.php');
         file_put_contents(
-            dirname(dirname(__DIR__)) . '/app/Models/' .$name.'.php',
+            dirname(dirname(__DIR__)) . '/app/Entity/' .$name.'.php',
             preg_replace('/PregReplace/', "$name", $text)
         );
         $output->writeln("Model généré");

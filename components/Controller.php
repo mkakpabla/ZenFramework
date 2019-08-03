@@ -2,21 +2,25 @@
 namespace Components;
 
 use Components\Renderer\RendererInterface;
+use Psr\Container\ContainerInterface;
+use Rakit\Validation\Validation;
+use Rakit\Validation\Validator;
 
 class Controller
 {
-    /***
-     * @var RendererInterface
+    use Redirect;
+    /**
+     * @var ContainerInterface
      */
-    public $renderer;
+    protected $container;
 
     /***
      * Controller constructor.
-     * @param RendererInterface $renderer
+     * @param ContainerInterface $container
      */
-    public function __construct(RendererInterface $renderer)
+    public function __construct(ContainerInterface $container)
     {
-        $this->renderer = $renderer;
+        $this->container = $container;
     }
 
     /***
@@ -27,6 +31,11 @@ class Controller
      */
     protected function render(string  $view, ?array $data = [])
     {
-        return $this->renderer->render($view, $data);
+        return $this->container->get(RendererInterface::class)->render($view, $data);
+    }
+
+    protected function validation(array $inputs, array $rules, array $messages = []): Validation
+    {
+        return $this->container->get(Validator::class)->validate($inputs, $rules, $messages);
     }
 }

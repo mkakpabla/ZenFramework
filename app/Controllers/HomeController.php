@@ -4,6 +4,7 @@
 namespace App\Controllers;
 
 use Components\Controller;
+use Components\Renderer\RendererInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 /**
@@ -11,6 +12,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
  */
 class HomeController extends Controller
 {
+
 
     /**
      * @Route [GET] / (home)

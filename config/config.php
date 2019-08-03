@@ -1,10 +1,9 @@
 <?php
 
 use Components\Extensions\TwigRouteExtension;
+use Components\Factory\PdoFactory;
 use Components\Factory\TwigRendererFactory;
 use Components\Renderer\RendererInterface;
-use Components\Router\Router;
-use function DI\autowire;
 use function DI\factory;
 use function DI\get;
 
@@ -12,7 +11,10 @@ return [
     // View config
     'view.path' => dirname(__DIR__) . '/views',
     'cache.path' => dirname(__DIR__) . '/cache',
-    
+
+    // Controller path
+    'controller.path' => [dirname(__DIR__) . '/app'],
+
     // Extensions Twig
     'twig.extensions' => [
         get(TwigRouteExtension::class)
@@ -20,5 +22,7 @@ return [
 
     RendererInterface::class => factory(TwigRendererFactory::class),
 
-    Router::class => autowire()
+    PDO::class => factory(PdoFactory::class),
+
+
 ];
