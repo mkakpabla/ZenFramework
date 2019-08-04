@@ -3,7 +3,6 @@
 require "../vendor/autoload.php";
 
 use Components\App;
-use Components\Middlewares\AddRoutesMiddleware;
 use Components\Middlewares\NotFoundMiddleware;
 use Components\Middlewares\RouterMiddleware;
 use Components\Middlewares\TraillingSlashMiddleware;
