@@ -4,16 +4,16 @@
 require __DIR__ . '/vendor/autoload.php';
 
 
-use Components\Commands\GenerateController;
-use Components\Commands\GenerateMiddleware;
-use Components\Commands\GenerateModel;
-use Components\Commands\Phinx\GenerateMigration;
-use Components\Commands\Phinx\GenerateSeeder;
-use Components\Commands\Phinx\Migrate;
-use Components\Commands\Phinx\SeedRun;
+use Framework\Commands\GenerateController;
+use Framework\Commands\GenerateMiddleware;
+use Framework\Commands\GenerateModel;
+use Framework\Commands\Phinx\GenerateMigration;
+use Framework\Commands\Phinx\GenerateSeeder;
+use Framework\Commands\Phinx\Migrate;
+use Framework\Commands\Phinx\SeedRun;
 use Symfony\Component\Console\Application;
 
-$application = new Application('ZenConsole', '1.0.0');
+$application = new Application('Console', '1.0.0');
 
 
 $application->add(new GenerateController());

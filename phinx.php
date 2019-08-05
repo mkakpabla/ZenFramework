@@ -1,6 +1,6 @@
 <?php
 
-use Components\Env;
+use Framework\Env;
 
 include __DIR__. '/vendor/autoload.php';
 Env::load();

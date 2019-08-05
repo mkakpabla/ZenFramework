@@ -1,5 +1,5 @@
 <?php
-use Components\Env;
+use Framework\Env;
 
 Env::load();
 $database  =  [

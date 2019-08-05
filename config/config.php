@@ -1,9 +1,9 @@
 <?php
 
-use Components\Extensions\TwigRouteExtension;
-use Components\Factory\PdoFactory;
-use Components\Factory\TwigRendererFactory;
-use Components\Renderer\RendererInterface;
+use Framework\Extensions\TwigRouteExtension;
+use Framework\Factory\PdoFactory;
+use Framework\Factory\TwigRendererFactory;
+use Framework\Renderer\RendererInterface;
 use function DI\factory;
 use function DI\get;
 
@@ -13,7 +13,7 @@ return [
     'cache.path' => dirname(__DIR__) . '/cache',
 
     // Controller path
-    'controller.path' => [dirname(__DIR__) . '/src/App/Controllers'],
+    'controller.path' => [dirname(__DIR__) . '/app/Controllers'],
 
     // Extensions Twig
     'twig.extensions' => [
