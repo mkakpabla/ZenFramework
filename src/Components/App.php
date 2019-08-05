@@ -3,10 +3,7 @@
 
 namespace Components;
 
-use Components\Router\Annotation\Reader;
-use Components\Router\Router;
 use DI\Container;
-use DI\ContainerBuilder;
 use DI\DependencyException;
 use DI\NotFoundException;
 use Exception;
@@ -15,6 +12,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Psr\Container\ContainerInterface;
 
 /**
  * Class App
@@ -44,9 +42,9 @@ class App implements RequestHandlerInterface
      * @throws DependencyException
      * @throws NotFoundException
      */
-    public function __construct()
+    public function __construct(ContainerInterface $container)
     {
-        $this->getContainer()->get(Router::class)->addRoutes($this->getRoutes());
+        $this->container = $container;
     }
 
     /**
@@ -94,26 +92,5 @@ class App implements RequestHandlerInterface
             return $middleware;
         }
         return null;
-    }
-
-
-    private function getRoutes()
-    {
-        $reader = new Reader($this->container->get('controller.path'));
-        $reader->run();
-        return $reader->getRoutes();
-    }
-
-    /**
-     * Renvoie une instance du container
-     * @return Container
-     * @throws Exception
-     */
-    private function getContainer()
-    {
-        $builder = new ContainerBuilder();
-        $builder->addDefinitions(dirname(dirname(__DIR__)). '/config/config.php');
-        $this->container = $builder->build();
-        return $this->container;
     }
 }

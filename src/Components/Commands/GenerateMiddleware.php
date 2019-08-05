@@ -22,7 +22,7 @@ class GenerateMiddleware extends Command
         $name = $input->getArgument('name');
         $text = file_get_contents(__DIR__ . '/templates/middleware.template.php');
         file_put_contents(
-            dirname(dirname(__DIR__)) . '/components/Middlewares/' .$name.'.php',
+            dirname(dirname(__DIR__)) . '/Components/Middlewares/' .$name.'.php',
             preg_replace('/PregReplace/', "$name", $text)
         );
         $output->writeln("Middleware généré");

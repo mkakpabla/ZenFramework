@@ -18,19 +18,24 @@ class UserManager extends Manager
 
     public function get(int $id)
     {
-        //
+        $pdoStatement = $this->pdo->prepare(
+            "SELECT * FROM users WHERE id = :id"
+        );
+        $pdoStatement->bindValue(':id', $id, PDO::PARAM_INT);
+        $pdoStatement->execute();
+        return $pdoStatement->fetch();
     }
 
-    public function create(User $user): int
+    public function create(User $user): bool
     {
-        $pdoStatment = $this->pdo->prepare(
+        $pdoStatement = $this->pdo->prepare(
             "INSERT INTO users
                     SET  email = :email, username = :username, password = :password"
         );
-        $pdoStatment->bindValue(':username', $user->getUsername(), PDO::PARAM_STR);
-        $pdoStatment->bindValue(':email', $user->getEmail(), PDO::PARAM_STR);
-        $pdoStatment->bindValue(':password', $user->getPassword(), PDO::PARAM_STR);
-        return $pdoStatment->execute();
+        $pdoStatement->bindValue(':username', $user->getUsername(), PDO::PARAM_STR);
+        $pdoStatement->bindValue(':email', $user->getEmail(), PDO::PARAM_STR);
+        $pdoStatement->bindValue(':password', $user->getPassword(), PDO::PARAM_STR);
+        return $pdoStatement->execute();
     }
 
     public function update(User $user, int $id)

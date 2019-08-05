@@ -9,9 +9,14 @@ use Components\Middlewares\TraillingSlashMiddleware;
 use GuzzleHttp\Psr7\ServerRequest;
 use function Http\Response\send;
 use Middlewares\Whoops;
+use DI\ContainerBuilder;
+
+$builder = new ContainerBuilder();
+$builder->addDefinitions('../config/config.php');
+$container = $builder->build();
 
 // Création d'un application
-$app = (new App())
+$app = (new App($container))
     ->pipe(Whoops::class)
     ->pipe(TraillingSlashMiddleware::class)
     ->pipe(RouterMiddleware::class)

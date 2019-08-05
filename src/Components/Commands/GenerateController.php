@@ -14,7 +14,7 @@ class GenerateController extends Command
     {
         $this->setName('make:controller');
         $this->addArgument("name", InputArgument::REQUIRED, 'controller name');
-        $this->addArgument("route", InputArgument::REQUIRED, 'controller route base name');
+        $this->addArgument("route", InputArgument::OPTIONAL, 'controller route base name');
         $this->setDescription('Create a new controller');
     }
 
@@ -22,11 +22,20 @@ class GenerateController extends Command
     {
         $name = $input->getArgument('name');
         $route = $input->getArgument('route');
-        $text = file_get_contents(__DIR__ . '/templates/controller.template.php');
-        file_put_contents(
-            dirname(dirname(__DIR__)) . '/app/Controllers/' .$name.'.php',
-            preg_replace(['/PregReplace/', '/baseroute/'], [$name, $route], $text)
-        );
+        if($route) {
+            $text = file_get_contents(__DIR__ . '/templates/controller.routes.template.php');
+            file_put_contents(
+                dirname(dirname(__DIR__)) . '/App/Controllers/' .$name.'.php',
+                preg_replace(['/PregReplace/', '/baseroute/'], [$name, $route], $text)
+            );
+        } else {
+            $text = file_get_contents(__DIR__ . '/templates/controller.template.php');
+            file_put_contents(
+                dirname(dirname(__DIR__)) . '/App/Controllers/' .$name.'.php',
+                preg_replace('/PregReplace/',$name, $text)
+            );
+        }
+        
         $output->writeln("Controller généré");
     }
 }

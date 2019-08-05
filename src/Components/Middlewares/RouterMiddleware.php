@@ -2,9 +2,9 @@
 
 namespace Components\Middlewares;
 
+
+use Components\Router\Annotation\Reader;
 use Components\Router\Router;
-use DI\Container;
-use DI\ContainerBuilder;
 use Exception;
 use GuzzleHttp\Psr7\Response;
 use Psr\Container\ContainerInterface;
@@ -25,15 +25,14 @@ class RouterMiddleware implements MiddlewareInterface
     private $container;
 
 
-    public function __construct(Router $router, ContainerInterface $container)
+    public function __construct(ContainerInterface $container)
     {
-        $this->router = $router;
         $this->container = $container;
     }
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $route = $this->router->match($request);
+        $route = $this->getRoutes()->match($request);
         if ($route) {
             if (is_array($route->getHandler())) {
                 $params = $route->getAttributes();
@@ -54,17 +53,10 @@ class RouterMiddleware implements MiddlewareInterface
     }
 
 
-    /**
-     * Renvoie une instance du container
-     * @return Container
-     * @throws Exception
-     */
-    private function getContainer()
+    private function getRoutes()
     {
-        $builder = new ContainerBuilder();
-        $builder->addDefinitions(dirname(dirname(__DIR__)) . '/config/config.php');
-        $container = $builder->build();
-        $container->set(Router::class, $this->router);
-        return $container;
+        $reader = new Reader($this->container->get('controller.path'));
+        $reader->run();
+        return $this->container->get(Router::class)->addRoutes($reader->getRoutes());
     }
 }
