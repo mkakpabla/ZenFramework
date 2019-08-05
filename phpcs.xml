@@ -5,8 +5,8 @@
     <arg name="colors"/>
     <arg value="p"/>
 
-    <file>src/App</file>
-    <file>src/Components</file>
+    <file>app</file>
+    <file>src/Framework</file>
     <file>public/index.php</file>
 
     <rule ref="PSR2">
