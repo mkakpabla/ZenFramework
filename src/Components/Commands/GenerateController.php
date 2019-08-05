@@ -22,7 +22,7 @@ class GenerateController extends Command
     {
         $name = $input->getArgument('name');
         $route = $input->getArgument('route');
-        if($route) {
+        if ($route) {
             $text = file_get_contents(__DIR__ . '/templates/controller.routes.template.php');
             file_put_contents(
                 dirname(dirname(__DIR__)) . '/App/Controllers/' .$name.'.php',
@@ -32,7 +32,7 @@ class GenerateController extends Command
             $text = file_get_contents(__DIR__ . '/templates/controller.template.php');
             file_put_contents(
                 dirname(dirname(__DIR__)) . '/App/Controllers/' .$name.'.php',
-                preg_replace('/PregReplace/',$name, $text)
+                preg_replace('/PregReplace/', $name, $text)
             );
         }
         

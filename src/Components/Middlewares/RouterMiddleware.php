@@ -2,7 +2,6 @@
 
 namespace Components\Middlewares;
 
-
 use Components\Router\Annotation\Reader;
 use Components\Router\Router;
 use Exception;
