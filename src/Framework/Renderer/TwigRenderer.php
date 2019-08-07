@@ -5,16 +5,9 @@ use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
-use Twig\Loader\FilesystemLoader;
 
 class TwigRenderer implements RendererInterface
 {
-
-    /***
-     * Represente le chemin vers les vues
-     * @var string
-     */
-    private $loader;
     /***
      * Represente le chemin vers les caches des vues
      * @var string

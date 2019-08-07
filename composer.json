@@ -1,6 +1,6 @@
 {
-    "name": "michel/zenframework",
-    "description": "Simple Framework",
+    "name": "michel/phf",
+    "description": "Personal Home Framework",
     "license": "MIT",
     "authors": [
         {
@@ -20,13 +20,14 @@
         "twig/twig": "^2.11",
         "php-di/php-di": "^6.0",
         "rakit/validation": "^1.2",
-        "ext-json": "*"
+        "ext-json": "*",
+        "intervention/image": "^2.5"
     },
     "autoload": {
         "psr-4": {
             "App\\": "app",
             "Framework\\": "src/Framework",
-            "Test\\": "tests"
+            "Tests\\": "tests"
         }
     },
     "require-dev": {
@@ -36,6 +37,7 @@
         "fzaninotto/faker": "^1.8",
         "phpunit/phpunit": "^8.2",
         "filp/whoops": "^2.4",
-        "middlewares/debugbar": "^1.1"
+        "middlewares/debugbar": "^1.1",
+        "maximebf/debugbar": "1.*"
     }
 }

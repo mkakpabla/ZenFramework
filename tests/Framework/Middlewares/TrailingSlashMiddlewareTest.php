@@ -1,7 +1,7 @@
 <?php
-namespace Tests\Framework\Middleware;
+namespace Tests\Framework\Middlewares;
 
-use Components\Middlewares\TraillingSlashMiddleware;
+use Framework\Middlewares\TraillingSlashMiddleware;
 use GuzzleHttp\Psr7\ServerRequest;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Server\RequestHandlerInterface;

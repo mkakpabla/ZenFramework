@@ -1,9 +1,9 @@
 <?php
 
 
-namespace Test\Middlewares;
+namespace Tests\Framework\Middlewares;
 
-use Components\Middlewares\NotFoundMiddleware;
+use Framework\Middlewares\NotFoundMiddleware;
 use GuzzleHttp\Psr7\ServerRequest;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Server\RequestHandlerInterface;
