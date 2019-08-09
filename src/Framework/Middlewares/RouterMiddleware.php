@@ -28,6 +28,7 @@ class RouterMiddleware implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $route = $this->getRoutes()->match($request);
+
         if ($route) {
             if (is_array($route->getHandler())) {
                 $params = $route->getAttributes();
@@ -52,6 +53,7 @@ class RouterMiddleware implements MiddlewareInterface
     {
         $reader = new Reader($this->container->get('controller.path'));
         $reader->run();
+
         return $this->container->get(Router::class)->addRoutes($reader->getRoutes());
     }
 }

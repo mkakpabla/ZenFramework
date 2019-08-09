@@ -9,7 +9,7 @@ use Framework\Controller;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
- * @BaseRoute
+ * @GroupRoute
  */
 class RegisterController extends Controller
 {

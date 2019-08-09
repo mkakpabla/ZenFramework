@@ -10,16 +10,16 @@ class LoginController extends Controller
 {
 
     /**
-     * @Route [GET] /login (login.create)
+     * @Route('get', '/users/create', 'login.create')
      * @Middleware PostMiddleware
      */
-    public function createAction()
+    public function create()
     {
         return $this->render('auth.login');
     }
 
     /**
-     * @Route [POST] /login (login.store)
+     * @Route('post', '/users/store', 'login.store')
      * @param $request
      */
     public function store(ServerRequestInterface $request)

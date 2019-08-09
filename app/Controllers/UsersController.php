@@ -4,7 +4,7 @@ namespace App\Controllers;
 use Framework\Controller;
 
 /**
- * @BaseRoute /users
+ * @GroupRoute /users
  */
 class UsersController extends Controller
 {

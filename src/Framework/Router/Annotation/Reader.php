@@ -112,7 +112,7 @@ class Reader implements ReaderInterface
 
             // now preg through the class comment and get the base route
             if ($classReflection->getDocComment() !== false) {
-                preg_match("/@BaseRoute\s+(.*?)\s/i", $classReflection->getDocComment(), $baseRoute);
+                preg_match("/@GroupRoute\s+(.*?)\s/i", $classReflection->getDocComment(), $baseRoute);
                 $baseRoute = $baseRoute[1];
                 // and the base middlewares
                 $baseMiddlewares = [];
@@ -156,21 +156,21 @@ class Reader implements ReaderInterface
 
                     // get the method comment and fetch the route
                     preg_match_all(
-                        "/@Route\s+\[(.*?)]\s+(.*?)\s+(\((.*?)\))?/i",
+                        "/@Route[(]([a-zA-Z']+)(,\s+)([a-zA-Z'\/{}]+)(,\s+)([a-zA-Z.'\/]+)/i",
                         $methodComment,
-                        $comments,
+                        $matches,
                         PREG_SET_ORDER
                     );
 
-                    foreach ((array)$comments as $comment) {
+                    foreach ((array)$matches as $match) {
                         // clean route part, method and name values (cast name to string, because it can be NULL)
-                        if ($comment[2] == "/") {
-                            $comment[2] = "";
+                        if ($match[3] == "/") {
+                            $comment[3] = "";
                         }
 
-                        $routeMethod = trim(strtolower($comment[1]));
-                        $routeName = trim(strtolower((string)$comment[4]));
-                        $routeMethodUri = trim(strtolower($comment[2]));
+                        $routeMethod = trim(strtolower($match[1]), "'");
+                        $routeName = trim(strtolower((string)$match[5]), "'");
+                        $routeMethodUri = trim(strtolower($match[3]), "'");
                         if (isset($baseRoute)) {
                             $routeUri = preg_replace("/\/{2,}/is", "/", $baseRoute . $routeMethodUri);
                         } else {

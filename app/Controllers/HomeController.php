@@ -6,14 +6,14 @@ namespace App\Controllers;
 use Framework\Controller;
 
 /**
- * @BaseRoute /
+ * @GroupRoute /
  */
 class HomeController extends Controller
 {
 
 
     /**
-     * @Route [GET] / (home)
+     * @Route('get', '/', 'home')
      */
     public function index()
     {

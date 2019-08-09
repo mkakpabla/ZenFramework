@@ -29,9 +29,6 @@ class TwigRouteExtension extends AbstractExtension
 
     public function route(string $name, ?array $params = [])
     {
-        try {
-            return $this->router->uri($name, $params);
-        } catch (\Exception $e) {
-        }
+        return $this->router->uri($name, $params);
     }
 }
