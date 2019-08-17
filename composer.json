@@ -1,10 +1,10 @@
 {
-    "name": "michel/phf",
+    "name": "michel/zenframework",
     "description": "Personal Home Framework",
     "license": "MIT",
     "authors": [
         {
-            "name": "Michel",
+            "name": "Michel Akpabla",
             "email": "michel.akpabla2@gmail.com"
         }
     ],

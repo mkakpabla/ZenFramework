@@ -14,6 +14,7 @@ $container = $builder->build();
 // Création d'un application
 $app = (new App($container))
     ->pipe(\Middlewares\Whoops::class)
+    ->pipe(\Framework\Middlewares\ValidationMiddleware::class)
     ->pipe(\Framework\Middlewares\TraillingSlashMiddleware::class)
     ->pipe(\Framework\Middlewares\RouterMiddleware::class)
     ->pipe(\Framework\Middlewares\NotFoundMiddleware::class)

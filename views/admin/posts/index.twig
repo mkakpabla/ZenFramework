@@ -1,0 +1,27 @@
+{% extends 'layouts/admin.twig' %}
+
+{% block content %}
+
+    <div class="container">
+        <a class="btn btn-success mb-2" href="{{ route('admin.posts.create') }}">Nouveau Article</a>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for post in posts %}
+                <tr>
+                    <td>{{ post.title }}</td>
+                    <td>
+                        <button class="btn btn-primary btn-edit" data-url="{{ route('admin.post.edit', {id: post.id}) }}" data-toggle="modal" data-target="#exampleModal">Editer</button>
+                        <button class="btn btn-danger">Supprimer</button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

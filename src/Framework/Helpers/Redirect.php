@@ -5,6 +5,7 @@ namespace Framework\Helpers;
 
 use Framework\Router\Router;
 use GuzzleHttp\Psr7\Response;
+use Psr\Http\Message\ServerRequestInterface;
 
 trait Redirect
 {
@@ -16,4 +17,6 @@ trait Redirect
             ->withStatus(301)
             ->withHeader('location', $uri);
     }
+
+
 }

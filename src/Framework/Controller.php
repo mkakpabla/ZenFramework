@@ -4,8 +4,6 @@ namespace Framework;
 use Framework\Helpers\Redirect;
 use Framework\Renderer\RendererInterface;
 use Psr\Container\ContainerInterface;
-use Rakit\Validation\Validation;
-use Rakit\Validation\Validator;
 
 class Controller
 {
@@ -35,8 +33,11 @@ class Controller
         return $this->container->get(RendererInterface::class)->render($view, $data);
     }
 
-    protected function validation(array $inputs, array $rules, array $messages = []): Validation
+    public function notFound()
     {
-        return $this->container->get(Validator::class)->validate($inputs, $rules, $messages);
+        http_response_code(404);
+        return $this->render('errors.404');
     }
+
+
 }

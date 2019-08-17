@@ -10,7 +10,7 @@ use Psr\Http\Message\ServerRequestInterface;
  * Class Router
  * @package Components\Router
  */
-class Router implements Routerinterface
+class Router implements RouterInterface
 {
 
     /**

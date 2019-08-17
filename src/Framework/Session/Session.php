@@ -27,7 +27,14 @@ class Session implements SessionInterface
      */
     public function set(string $key, $value): void
     {
+        $this->sessionStart();
         $_SESSION[$key] = $value;
+    }
+
+    public function has($key)
+    {
+        $this->sessionStart();
+        return isset($_SESSION[$key]);
     }
 
     /**
@@ -36,6 +43,7 @@ class Session implements SessionInterface
      */
     public function delete(string $key): void
     {
+        $this->sessionStart();
         unset($_SESSION[$key]);
     }
 

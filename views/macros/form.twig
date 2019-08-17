@@ -1,0 +1,34 @@
+{% macro input(label, name, value = null, options = []) %}
+    <div class="form-group {{ options.class }} {{ errors.has(name) ? 'is-invalid' : '' }}">
+        <label for="{{ name }}">{{ label }}</label>
+        <input id="{{ name }}" class="form-control" type="{{ options.type | default('text') }}" name="{{ name }}">
+        {% if errors.has(name) %}
+            <p class="text-danger">{{ errors.first(name) }}</p>
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{% macro textarea(label, name, value = null, options = []) %}
+    <div class="form-group {{ options.class }} {{ errors.has(name) ? 'is-invalid' : '' }}">
+        <label for="{{ name }}">{{ label }}</label>
+        <textarea name="{{ name }}" id="{{ name }}" class="form-control">{{ value }}</textarea>
+        {% if errors.has(name) %}
+            <p class="text-danger">{{ errors.first(name) }}</p>
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{% macro select(label, name, values = [], options = []) %}
+    <div class="form-group {{ options.class }} {{ errors.has(name) ? 'is-invalid' : '' }}">
+        <label for="{{ name }}">Categories</label>
+        <select class="form-control" name="{{ name }}" id="{{ name }}">
+            {% for value in values %}
+                <options></options>
+            <option value="{{ value.id }}">{{ value.title }}</option>
+            {% endfor %}
+        </select>
+        {% if errors.has(name) %}
+            <p class="text-danger">{{ errors.first(name) }}</p>
+        {% endif %}
+    </div>
+{% endmacro %}

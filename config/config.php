@@ -22,6 +22,8 @@ return [
 
     RendererInterface::class => factory(TwigRendererFactory::class),
 
+    \Framework\Session\SessionInterface::class => \DI\autowire(\Framework\Session\Session::class),
+
     PDO::class => factory(PdoFactory::class),
 
 

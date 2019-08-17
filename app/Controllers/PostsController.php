@@ -1,7 +1,6 @@
 <?php
 namespace App\Controllers;
 
-use App\Entity\Post;
 use App\Manager\PostManager;
 use Framework\Controller;
 
@@ -9,13 +8,16 @@ class PostsController extends Controller
 {
 
     /**
-     * @Route('get', '/posts/{slug}', 'post.show')
+     * @Route('get', '/posts/{slug}', 'posts.show')
      * @param $slug
      * @return string
      */
     public function show($slug)
     {
         $post = $this->container->get(PostManager::class)->get('slug', $slug);
+        if ($post === null) {
+            return $this->notFound();
+        }
         return $this->render('posts.show', compact('post'));
     }
 

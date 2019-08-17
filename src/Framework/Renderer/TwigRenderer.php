@@ -39,8 +39,8 @@ class TwigRenderer implements RendererInterface
         return $this->twig->render($view, $data);
     }
 
-    public function addGlobal($value)
+    public function addGlobal($name, $value)
     {
-        $this->twig->addGlobal('route', $value);
+        $this->twig->addGlobal($name, $value);
     }
 }

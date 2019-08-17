@@ -5,9 +5,6 @@ namespace App\Controllers;
 
 use Framework\Controller;
 
-/**
- * @GroupRoute /
- */
 class HomeController extends Controller
 {
 

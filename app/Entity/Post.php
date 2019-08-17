@@ -3,41 +3,51 @@
 
 namespace App\Entity;
 
+use Framework\Helpers\EntityValidator;
+
 /**
  * Class Post
  * @package App\Entity
  */
 class Post
 {
+    use EntityValidator;
 
     /**
-     * @var
+     * @var int
      */
     private $id;
     /**
-     * @var
+     * @var string
+     * @Rule 'required'
      */
     private $title;
     /**
-     * @var
+     * @var string
+     * @Rule 'required'
+     */
+    private $slug;
+    /**
+     * @var string
+     * @Rule 'required'
      */
     private $content;
     /**
-     * @var
+     * @var int
+     * @Rule 'required|integer'
      */
-    private $category;
+    private $category_id;
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getId()
     {
         return $this->id;
     }
 
-
     /**
-     * @return mixed
+     * @return string
      */
     public function getTitle()
     {
@@ -51,6 +61,24 @@ class Post
     public function setTitle($title)
     {
         $this->title = $title;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     * @return Post
+     */
+    public function setSlug(string $slug): Post
+    {
+        $this->slug = $slug;
         return $this;
     }
 
@@ -75,18 +103,18 @@ class Post
     /**
      * @return mixed
      */
-    public function getCategory()
+    public function getCategoryId()
     {
-        return $this->category;
+        return $this->category_id;
     }
 
     /**
-     * @param mixed $category
+     * @param $category_id
      * @return Post
      */
-    public function setCategory($category)
+    public function setCategoryId($category_id)
     {
-        $this->category = $category;
+        $this->category_id = $category_id;
         return $this;
     }
 }

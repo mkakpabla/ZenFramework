@@ -31,4 +31,11 @@ interface SessionInterface
      * @return mixed
      */
     public function delete(string $key): void;
+
+
+
+    public function has(string $key);
+
+
+
 }

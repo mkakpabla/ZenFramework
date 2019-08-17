@@ -70,15 +70,9 @@ class Reader implements ReaderInterface
      */
     private function calculateClassList(): void
     {
-
-        // walk through all the directories
         foreach ($this->directories as $directory) {
-            // and look for files ending with "{$this->classPostfix}.php"
-
             $directoryIterator = new \RecursiveDirectoryIterator(realpath($directory));
-
             $interator = new \RecursiveIteratorIterator($directoryIterator);
-
             $filter = new \RegexIterator(
                 $interator,
                 '/^.+Controller\.php$/i',
@@ -109,7 +103,6 @@ class Reader implements ReaderInterface
         foreach ($this->classlist as $className) {
             // and build a new reflection class object
             $classReflection = new \ReflectionClass($className);
-
             // now preg through the class comment and get the base route
             if ($classReflection->getDocComment() !== false) {
                 preg_match("/@GroupRoute\s+(.*?)\s/i", $classReflection->getDocComment(), $baseRoute);
@@ -163,11 +156,6 @@ class Reader implements ReaderInterface
                     );
 
                     foreach ((array)$matches as $match) {
-                        // clean route part, method and name values (cast name to string, because it can be NULL)
-                        if ($match[3] == "/") {
-                            $comment[3] = "";
-                        }
-
                         $routeMethod = trim(strtolower($match[1]), "'");
                         $routeName = trim(strtolower((string)$match[5]), "'");
                         $routeMethodUri = trim(strtolower($match[3]), "'");
