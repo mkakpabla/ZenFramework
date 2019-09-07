@@ -48,16 +48,6 @@ abstract class AbstractModel
 
     private function getInputsKeys(array $inputs)
     {
-        $col = '';
-        $array = array_keys($inputs);
-        $last_key = end($array);
-        foreach ($inputs as $key => $input) {
-            if ($key === $last_key) {
-                $col .= ' '. $key . ' = ?';
-            } else {
-                $col .= ' '. $key . ' = ?,';
-            }
-        }
-        return $col;
+        return implode(' = ?, ', array_keys($inputs)) . ' = ?';
     }
 }

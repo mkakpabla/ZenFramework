@@ -27,7 +27,7 @@ class Reader implements ReaderInterface
     /**
      * @var string
      */
-    private $cacheFile = "routes.php";
+    private $cacheFile = "routes.cache";
 
     /**
      * @var bool|null
@@ -61,7 +61,8 @@ class Reader implements ReaderInterface
             $this->calculateClassList();
             $this->buildRoutes();
         } else {
-            $this->routes =  require $this->cache.DIRECTORY_SEPARATOR. $this->cacheFile;
+            $fileContent = file($this->cache.DIRECTORY_SEPARATOR. $this->cacheFile)[0];
+            $this->routes =  unserialize(urldecode($fileContent));
         }
     }
 
@@ -199,7 +200,7 @@ class Reader implements ReaderInterface
 
         // Verifier si le cahe est définie si oui mettre en cache si non on fait rien
         if ($this->cache !== null) {
-            file_put_contents($this->cache.DIRECTORY_SEPARATOR. $this->cacheFile, $this->routes);
+            file_put_contents($this->cache .DIRECTORY_SEPARATOR .$this->cacheFile, urlencode(serialize($this->routes)));
         }
     }
 

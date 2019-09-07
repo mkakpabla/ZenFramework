@@ -2,6 +2,7 @@
 
 namespace Framework\Middlewares;
 
+use Framework\Env;
 use Framework\Router\Annotation\Reader;
 use Framework\Router\Router;
 use Exception;
@@ -51,7 +52,7 @@ class RouterMiddleware implements MiddlewareInterface
 
     private function getRoutes()
     {
-        $reader = new Reader($this->container->get('controller.path'));
+        $reader = new Reader($this->container->get('controller.path'), $this->container->get('cache.path'));
         $reader->run();
 
         return $this->container->get(Router::class)->addRoutes($reader->getRoutes());
