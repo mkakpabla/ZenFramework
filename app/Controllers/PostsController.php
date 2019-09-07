@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use App\Manager\PostManager;
+use App\Models\Post;
 use Framework\Controller;
 
 class PostsController extends Controller
@@ -26,7 +27,8 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = $this->container->get(PostManager::class)->getAll();
+        $posts = $this->container->get(Post::class)->all();
+        dd($posts);
         return $this->render('posts.index', compact('posts'));
     }
 }

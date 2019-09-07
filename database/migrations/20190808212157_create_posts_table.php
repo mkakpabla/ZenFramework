@@ -11,6 +11,7 @@ class CreatePostsTable extends AbstractMigration
             ->addColumn('title', 'string')
             ->addColumn('slug', 'string')
             ->addColumn('content', 'text')
+            ->addColumn('cover', 'string')
             ->addColumn('category_id', 'integer')
             ->addForeignKey('category_id', 'categories', 'id')
             ->create();

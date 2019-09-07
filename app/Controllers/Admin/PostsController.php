@@ -3,9 +3,8 @@
 
 namespace App\Controllers\Admin;
 
-use App\Entity\Post;
-use App\Manager\CategoryManager;
-use App\Manager\PostManager;
+use App\Models\Category;
+use App\Models\Post;
 use Framework\Controller;
 use Framework\Validator\Validator;
 use Psr\Http\Message\ServerRequestInterface;
@@ -25,8 +24,8 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $categories = $this->container->get(CategoryManager::class)->getAll();
-        $posts = $this->container->get(PostManager::class)->getAll();
+        $categories = $this->container->get(Category::class)->all();
+        $posts = $this->container->get(Post::class)->all();
         return $this->render('admin.posts.index', compact('posts', 'categories'));
     }
 
@@ -36,7 +35,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        $categories = $this->container->get(CategoryManager::class)->getAll();
+        $categories = $this->container->get(Category::class)->all();
         return $this->render('admin.posts.create', compact('categories'));
     }
 
@@ -48,13 +47,8 @@ class PostsController extends Controller
      */
     public function store(ServerRequestInterface $request)
     {
-        Validator::validate($request, Post::rules());
-        $post = new Post();
-        $post->setTitle($request->getParsedBody()['title'])
-            ->setSlug($request->getParsedBody()['title'])
-            ->setContent($request->getParsedBody()['content'])
-            ->setCategoryId($request->getParsedBody()['category_id']);
-        $this->container->get(PostManager::class)->create($post);
+        $this->container->get(Post::class)->insert($request->getParsedBody());
+        return $this->redirect('admin.posts.index');
     }
 
     /**
@@ -64,6 +58,17 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        $post = $this->container->get(PostManager::class)->get('id', $id);
+        $post = $this->container->get(Post::class)->get('id', $id);
+    }
+
+    /**
+     * @param $id
+     * @return string
+     * @Route('get', '/{id}/delete', 'admin.post.delete')
+     */
+    public function delete($id)
+    {
+        $this->container->get(Post::class)->delete($id);
+        return $this->redirect('admin.posts.index');
     }
 }
