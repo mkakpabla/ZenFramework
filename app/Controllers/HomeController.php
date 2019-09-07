@@ -10,7 +10,7 @@ class HomeController extends Controller
 
 
     /**
-     * @Route('get', '/test', 'home')
+     * @Route('get', '/home', 'home')
      */
     public function index()
     {
