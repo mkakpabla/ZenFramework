@@ -17,7 +17,8 @@ return [
 
     // Extensions Twig
     'twig.extensions' => [
-        get(TwigRouteExtension::class)
+        get(TwigRouteExtension::class),
+        get(\Framework\Extensions\BlobExtension::class)
     ],
 
     RendererInterface::class => factory(TwigRendererFactory::class),

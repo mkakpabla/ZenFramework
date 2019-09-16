@@ -9,5 +9,4 @@ class Category extends AbstractModel
 {
 
     protected $table = 'categories';
-
 }

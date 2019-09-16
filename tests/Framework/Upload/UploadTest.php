@@ -18,7 +18,7 @@ class UploadTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->upload = new Upload('/tests');
+        $this->upload = new Upload();
     }
 
     public function testUpload()

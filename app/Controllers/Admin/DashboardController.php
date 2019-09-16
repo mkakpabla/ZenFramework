@@ -3,8 +3,6 @@
 
 namespace App\Controllers\Admin;
 
-use App\Entity\Post;
-use App\Manager\PostManager;
 use Framework\Controller;
 
 class DashboardController extends Controller
@@ -15,5 +13,6 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        return $this->render('admin.index');
     }
 }

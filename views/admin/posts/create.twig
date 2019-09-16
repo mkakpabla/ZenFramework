@@ -4,10 +4,14 @@
 
     <div class="container">
         <h1>Ajouter de nouvelles articles</h1>
-        <form action="{{ route('admin.post.store') }}" method="post">
+        <form action="{{ route('admin.post.store') }}" method="post" enctype="multipart/form-data">
             <div class="row">
                 {{ Form.input("Titre de l'article", 'title', null, {class: 'col-md-6'}) }}
+                {{ Form.input("Slug de l'article", 'slug', null, {class: 'col-md-6'}) }}
+            </div>
+            <div class="row">
                 {{ Form.select('Catégorie', 'category_id', categories, {class: 'col-md-6'}) }}
+                {{ Form.input("Image à la une", 'cover', null, {class: 'col-md-6', type: 'file'}) }}
             </div>
             {{ Form.textarea("Contenu de l'article", 'content') }}
             <div class="form-group">

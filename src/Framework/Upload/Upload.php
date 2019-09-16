@@ -19,16 +19,8 @@ class Upload
      */
     protected $renameFile = true;
 
-    /***
-     * Upload constructor.
-     * @param string|null $path
-     */
-    public function __construct(?string $path = null)
-    {
-        if (!is_null($path)) {
-            $this->path = $path;
-        }
-    }
+    private $file = [];
+
 
     /***
      * @param UploadedFileInterface $file: le fichier à sauvegarder
@@ -36,7 +28,7 @@ class Upload
      * @return string: le chemin du fichier sauvegarder
      * @throws \Exception
      */
-    public function upload(UploadedFileInterface $file, ?string $oldFilePath = null)
+    final public function upload(UploadedFileInterface $file, ?string $oldFilePath = null)
     {
         $fileName = $file->getClientFilename();
         $targetPath = $this->getTargetPath($fileName);
@@ -44,7 +36,8 @@ class Upload
         $this->delete($oldFilePath);
         $this->pathExist($targetPath);
         $file->moveTo($targetPath);
-        return $targetPath;
+        $path = $this->path . DIRECTORY_SEPARATOR . pathinfo($targetPath, PATHINFO_BASENAME);
+        return $path;
     }
 
     /***
@@ -87,10 +80,11 @@ class Upload
      * Delete the file
      * @param string|null $oldFilePath
      */
-    private function delete(?string $oldFilePath): void
+    final public function delete(?string $oldFilePath): void
     {
         if ($oldFilePath) {
-            $file = getcwd() . $oldFilePath;
+            $fileName = pathinfo($oldFilePath, PATHINFO_BASENAME);
+            $file = getcwd() . DIRECTORY_SEPARATOR. $this->path . DIRECTORY_SEPARATOR .$fileName;
             if (file_exists($file)) {
                 unlink($file);
             }

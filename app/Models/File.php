@@ -3,7 +3,7 @@ namespace App\Models;
 
 use Framework\AbstractModel;
 
-class PregReplace extends AbstractModel
+class File extends AbstractModel
 {
 
 

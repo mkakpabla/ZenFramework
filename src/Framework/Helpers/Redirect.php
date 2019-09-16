@@ -17,6 +17,4 @@ trait Redirect
             ->withStatus(301)
             ->withHeader('location', $uri);
     }
-
-
 }

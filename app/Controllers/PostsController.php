@@ -1,7 +1,6 @@
 <?php
 namespace App\Controllers;
 
-use App\Manager\PostManager;
 use App\Models\Post;
 use Framework\Controller;
 
@@ -12,13 +11,11 @@ class PostsController extends Controller
      * @Route('get', '/posts/{slug}', 'posts.show')
      * @param $slug
      * @return string
+     * @throws \Exception
      */
     public function show($slug)
     {
-        $post = $this->container->get(PostManager::class)->get('slug', $slug);
-        if ($post === null) {
-            return $this->notFound();
-        }
+        $post = $this->container->get(Post::class)->get(['slug' => $slug]);
         return $this->render('posts.show', compact('post'));
     }
 
@@ -28,7 +25,7 @@ class PostsController extends Controller
     public function index()
     {
         $posts = $this->container->get(Post::class)->all();
-        dd($posts);
+
         return $this->render('posts.index', compact('posts'));
     }
 }

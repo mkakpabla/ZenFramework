@@ -5,7 +5,10 @@ namespace App\Controllers\Admin;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Uploads\PostsUpload;
 use Framework\Controller;
+use Framework\Upload\File;
+use Framework\Upload\Upload;
 use Framework\Validator\Validator;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -47,7 +50,12 @@ class PostsController extends Controller
      */
     public function store(ServerRequestInterface $request)
     {
-        $this->container->get(Post::class)->insert($request->getParsedBody());
+        $postUpload = new PostsUpload();
+        $cover = $postUpload->upload($request->getUploadedFiles()['cover']);
+        $data = array_merge($request->getParsedBody(), [
+            'cover' => $cover
+        ]);
+        $this->container->get(Post::class)->insert($data);
         return $this->redirect('admin.posts.index');
     }
 
@@ -55,6 +63,7 @@ class PostsController extends Controller
      * @param $id
      * @return string
      * @Route('get', '/{id}/edit', 'admin.post.edit')
+     * @throws \Exception
      */
     public function edit($id)
     {
@@ -65,9 +74,13 @@ class PostsController extends Controller
      * @param $id
      * @return string
      * @Route('get', '/{id}/delete', 'admin.post.delete')
+     * @throws \Exception
      */
     public function delete($id)
     {
+        $post = $this->container->get(Post::class)->get(['id' => $id]);
+        $upload = new PostsUpload();
+        $upload->delete($post->cover);
         $this->container->get(Post::class)->delete($id);
         return $this->redirect('admin.posts.index');
     }

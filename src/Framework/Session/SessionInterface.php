@@ -35,7 +35,4 @@ interface SessionInterface
 
 
     public function has(string $key);
-
-
-
 }
