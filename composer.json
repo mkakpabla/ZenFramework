@@ -19,9 +19,7 @@
         "middlewares/whoops": "^1.2",
         "twig/twig": "^2.11",
         "php-di/php-di": "^6.0",
-        "rakit/validation": "^1.2",
         "ext-json": "*",
-        "intervention/image": "^2.5",
         "symfony/routing": "^4.3"
     },
     "autoload": {
@@ -36,9 +34,6 @@
         "symfony/var-dumper": "^4.3",
         "robmorgan/phinx": "^0.10.7",
         "fzaninotto/faker": "^1.8",
-        "phpunit/phpunit": "^8.2",
-        "filp/whoops": "^2.4",
-        "middlewares/debugbar": "^1.1",
-        "maximebf/debugbar": "1.*"
+        "phpunit/phpunit": "^8.2"
     }
 }
