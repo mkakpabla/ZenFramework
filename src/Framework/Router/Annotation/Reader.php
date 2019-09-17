@@ -106,7 +106,7 @@ class Reader implements ReaderInterface
             $classReflection = new \ReflectionClass($className);
             // now preg through the class comment and get the base route
             if ($classReflection->getDocComment() !== false) {
-                preg_match("/@GroupRoute\s+(.*?)\s/i", $classReflection->getDocComment(), $baseRoute);
+                preg_match("/@Group\s+(.*?)\s/i", $classReflection->getDocComment(), $baseRoute);
                 $baseRoute = $baseRoute[1];
                 // and the base middlewares
                 $baseMiddlewares = [];

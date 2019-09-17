@@ -10,6 +10,19 @@ use PHPUnit\Framework\TestCase;
 class UpdateTest extends TestCase
 {
 
+    /**
+     * @var \PDO
+     */
+    private $pdo;
+
+    protected function setUp(): void
+    {
+        $this->pdo = new \PDO('sqlite::memory:', null, null, [
+            \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_OBJ,
+            \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
+        ]);
+    }
+
     public function testUpdateQuery()
     {
         $query = (new Query())->table('posts')
@@ -23,7 +36,7 @@ class UpdateTest extends TestCase
 
     public function testUpdateQueryWithWhere()
     {
-        $query = (new Query())->table('posts')
+        $query = (new Query($this->pdo))->table('posts')
             ->update([
             'title' => 'titre de test',
             'slug' => 'slug-test',

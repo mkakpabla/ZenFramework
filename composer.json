@@ -20,7 +20,9 @@
         "twig/twig": "^2.11",
         "php-di/php-di": "^6.0",
         "ext-json": "*",
-        "symfony/routing": "^4.3"
+        "symfony/routing": "^4.3",
+        "mkakpabla/validation": "^1.0",
+        "envms/fluentpdo": "^2.1"
     },
     "autoload": {
         "psr-4": {

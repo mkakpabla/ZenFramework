@@ -5,18 +5,18 @@ namespace Framework\Factory;
 
 use Framework\Env;
 use PDO;
+use Psr\Container\ContainerInterface;
 
 class PdoFactory
 {
 
 
-    public function __invoke()
+    public function __invoke(ContainerInterface $container)
     {
-        Env::load();
         return new PDO(
-            'mysql:host=' . getenv('DB_HOST') . ';dbname=' . getenv('DB_DATABASE'),
-            getenv('DB_USERNAME'),
-            getenv('DB_PASSWORD'),
+            'mysql:host=' . $container->get('database.host') . ';dbname=' . $container->get('database.name'),
+            $container->get('database.username'),
+            $container->get('database.password'),
             [
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION

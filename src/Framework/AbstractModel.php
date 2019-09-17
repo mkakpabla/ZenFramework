@@ -3,7 +3,6 @@
 
 namespace Framework;
 
-use App\Models\Post;
 use Framework\Database\Query;
 use PDO;
 
@@ -13,8 +12,16 @@ abstract class AbstractModel
     protected $table;
 
     protected $rules = [];
+    /**
+     * @var PDO
+     */
+    private $pdo;
 
 
+    public function __construct(PDO $pdo)
+    {
+        $this->pdo = $pdo;
+    }
 
     public function insert(array $inputs)
     {
@@ -23,9 +30,8 @@ abstract class AbstractModel
 
     public function all()
     {
-        return (new Query())
-            ->from($this->getTable())
-            ->into(get_class($this))
+        return (new Query($this->pdo))->table($this->getTable())
+            ->select('*')
             ->fetchAll();
     }
 
@@ -51,12 +57,6 @@ abstract class AbstractModel
     {
     }
 
-
-
-    private function getInputsKeys(array $inputs)
-    {
-        return implode(' = ?, ', array_keys($inputs)) . ' = ?';
-    }
 
     private function getTable()
     {

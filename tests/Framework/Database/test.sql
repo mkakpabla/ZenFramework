@@ -1,0 +1,12 @@
+SET NAMES utf8;
+SET foreign_key_checks = 0;
+SET time_zone = 'SYSTEM';
+SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
+
+DROP TABLE IF EXISTS `posts`;
+CREATE TABLE `posts` (
+  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `title` INT(10) UNSIGNED NOT NULL DEFAULT 0,
+  `slug` VARCHAR(100) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

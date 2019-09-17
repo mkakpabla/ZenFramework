@@ -52,9 +52,7 @@ class RouterMiddleware implements MiddlewareInterface
 
     private function getRoutes()
     {
-        Env::load();
-        $cache = \env('APP_CACHE') === 'true' ? $this->container->get('cache.path') : null;
-        $reader = new Reader($this->container->get('controller.path'), $cache);
+        $reader = new Reader($this->container->get('controller.path'), $this->container->get('cache.path'));
         $reader->run();
         return $this->container->get(Router::class)->addRoutes($reader->getRoutes());
     }

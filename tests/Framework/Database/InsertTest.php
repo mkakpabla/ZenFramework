@@ -9,20 +9,45 @@ use PHPUnit\Framework\TestCase;
 class InsertTest extends TestCase
 {
 
+    /**
+     * @var \PDO
+     */
+    private $pdo;
+
+    protected function setUp(): void
+    {
+        $this->pdo = new \PDO('sqlite::memory:', null, null, [
+            \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_OBJ,
+            \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
+        ]);
+    }
+
 
     public function testInsertQuery()
     {
-        $query = (new Query())->table('posts')
+        $query = (new Query($this->pdo))->table('posts')
             ->insert([
                 'title' => 'titre de test',
                 'slug' => 'slug-test',
-                'content' => 'contenu de test',
-                'cover' => 'cover de test',
-                'category_id' => 1,
             ]);
         $this->assertEquals(
-            "INSERT INTO posts SET title = ?, slug = ?, content = ?, cover = ?, category_id = ?",
+            "INSERT INTO posts (title, slug) VALUES (?, ?)",
             (string)$query
+        );
+    }
+
+    public function testInsertQueryWithExecute()
+    {
+        $this->pdo->exec('CREATE TABLE posts');
+        $query = (new Query($this->pdo))->table('posts')
+            ->insert([
+                'title' => 'titre de test',
+                'slug' => 'slug-test',
+            ])
+        ->execute();
+        $this->assertEquals(
+            "INSERT INTO posts SET title = ?, slug = ?",
+            $query
         );
     }
 }

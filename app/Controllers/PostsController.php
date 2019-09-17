@@ -8,6 +8,14 @@ class PostsController extends Controller
 {
 
     /**
+     * @Route('get', '/posts', 'posts.index')
+     */
+    public function index()
+    {
+        $posts = $this->container->get(Post::class)->all();
+        return $this->render('posts.index', compact('posts'));
+    }
+    /**
      * @Route('get', '/posts/{slug}', 'posts.show')
      * @param $slug
      * @return string
@@ -19,13 +27,4 @@ class PostsController extends Controller
         return $this->render('posts.show', compact('post'));
     }
 
-    /**
-     * @Route('get', '/posts', 'posts.index')
-     */
-    public function index()
-    {
-        $posts = $this->container->get(Post::class)->all();
-
-        return $this->render('posts.index', compact('posts'));
-    }
 }

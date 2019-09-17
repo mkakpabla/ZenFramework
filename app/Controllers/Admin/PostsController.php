@@ -5,25 +5,15 @@ namespace App\Controllers\Admin;
 
 use App\Models\Category;
 use App\Models\Post;
-use App\Uploads\PostsUpload;
 use Framework\Controller;
-use Framework\Upload\File;
-use Framework\Upload\Upload;
-use Framework\Validator\Validator;
 use Psr\Http\Message\ServerRequestInterface;
 
-/**
- * Class PostsController
- * @package App\Controllers\Admin
- * @GroupRoute /admin/posts
- */
 class PostsController extends Controller
 {
 
 
     /**
-     * @return string
-     * @Route('get', '', 'admin.posts.index')
+     * @Route('get', '/admin/posts', 'admin.posts.index')
      */
     public function index()
     {
