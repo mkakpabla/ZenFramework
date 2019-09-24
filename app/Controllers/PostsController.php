@@ -26,5 +26,4 @@ class PostsController extends Controller
         $post = $this->container->get(Post::class)->get('slug', $slug);
         return $this->render('posts.show', compact('post'));
     }
-
 }
