@@ -6,7 +6,7 @@ namespace Framework\Router;
 use Aura\Router\RouterContainer;
 use Psr\Http\Message\ServerRequestInterface;
 
-class Router implements RouterInterface
+class Router
 {
 
     /**
