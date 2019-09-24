@@ -6,10 +6,6 @@ namespace Framework\Router;
 use Aura\Router\RouterContainer;
 use Psr\Http\Message\ServerRequestInterface;
 
-/**
- * Class Router
- * @package Components\Router
- */
 class Router implements RouterInterface
 {
 
