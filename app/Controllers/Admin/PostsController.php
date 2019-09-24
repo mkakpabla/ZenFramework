@@ -24,7 +24,7 @@ class PostsController extends Controller
 
     /**
      * @return string
-     * @Route('get', '/create', 'admin.posts.create')
+     * @Route('get', '/admin/posts/create', 'admin.posts.create')
      */
     public function create()
     {
@@ -34,16 +34,14 @@ class PostsController extends Controller
 
     /**
      * @param ServerRequestInterface $request
-     * @Route('post', '', 'admin.post.store')
+     * @Route('post', ''/admin/posts/create'', 'admin.post.store')
      * @return string
      * @throws \Exception
      */
     public function store(ServerRequestInterface $request)
     {
-        $postUpload = new PostsUpload();
-        $cover = $postUpload->upload($request->getUploadedFiles()['cover']);
         $data = array_merge($request->getParsedBody(), [
-            'cover' => $cover
+            'cover' => 'test'
         ]);
         $this->container->get(Post::class)->insert($data);
         return $this->redirect('admin.posts.index');

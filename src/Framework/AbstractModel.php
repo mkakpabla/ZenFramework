@@ -3,9 +3,6 @@
 
 namespace Framework;
 
-use Framework\Database\Query;
-use PDO;
-
 abstract class AbstractModel
 {
 
@@ -13,43 +10,50 @@ abstract class AbstractModel
 
     protected $rules = [];
     /**
-     * @var PDO
+     * @var \Envms\FluentPDO\Query
      */
-    private $pdo;
+    private $query;
 
 
-    public function __construct(PDO $pdo)
+    public function __construct(\Envms\FluentPDO\Query $query)
     {
-        $this->pdo = $pdo;
+        $this->query = $query;
     }
 
     public function insert(array $inputs)
     {
+        return $this->query
+            ->insertInto($this->getTable())
+            ->values($inputs)
+            ->execute();
     }
 
 
     public function all()
     {
-        return (new Query($this->pdo))->table($this->getTable())
-            ->select('*')
+        return $this->query->from($this->getTable())
             ->fetchAll();
     }
 
     public function take(int $limit)
     {
-        return (new Query())
+        return $this->query
             ->from($this->getTable())
             ->limit($limit)
-            ->into(get_class($this))
             ->fetch();
     }
 
-    public function get(array $key)
+    public function find(int $id)
     {
-        return (new Query())
-            ->from($this->getTable())
-            ->where($key)
-            ->into(get_class($this))
+        return $this->query->from($this->getTable())
+            ->where('id', $id)
+            ->fetch();
+    }
+
+    public function get($key, $value)
+    {
+        return $this->query->from($this->getTable())
+            ->where($key, $value)
             ->fetch();
     }
 
