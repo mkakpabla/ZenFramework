@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/mkakpabla/my-php-framework.svg?branch=master)](https://travis-ci.org/mkakpabla/my-php-framework)
+[![Build Status](https://travis-ci.org/mkakpabla/ZenFramework.svg?branch=master)](https://travis-ci.org/mkakpabla/ZenFramework)
 # ZenFramework
 ZenFramework is a Personal Home Framework
 
