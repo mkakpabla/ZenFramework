@@ -8,10 +8,16 @@
     <title>Blog - Articles</title>
 </head>
 <body>
-{% include 'partials/_navbar.twig' %}
+    <nav class="navbar navbar-dark bg-primary mb-5">
+        <div class="container">
+            <a class="navbar-brand" href="{{ route('home') }}">Blog</a>
+        </div>
+    </nav>
 
-{% block content %}{% endblock %}
+    {% block content %}{% endblock %}
 
+
+    {% block scripts %}{% endblock %}
 
 </body>
 </html>

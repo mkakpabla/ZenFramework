@@ -3,20 +3,20 @@
 
 namespace Framework\Extensions;
 
-use Framework\Router\Router;
+use Psr\Container\ContainerInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 class TwigRouteExtension extends AbstractExtension
 {
     /**
-     * @var Router
+     * @var ContainerInterface
      */
-    private $router;
+    private $container;
 
-    public function __construct(Router $router)
+    public function __construct(ContainerInterface $container)
     {
-        $this->router = $router;
+        $this->container = $container;
     }
 
     public function getFunctions()
@@ -28,6 +28,6 @@ class TwigRouteExtension extends AbstractExtension
 
     public function route(string $name, ?array $params = [])
     {
-        return $this->router->uri($name, $params);
+        return $this->container->get('router')->uri($name, $params);
     }
 }

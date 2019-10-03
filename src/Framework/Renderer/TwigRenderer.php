@@ -39,7 +39,12 @@ class TwigRenderer implements RendererInterface
         return $this->twig->render($view, $data);
     }
 
-    public function addGlobal($name, $value)
+    /***
+     * Permet d'ajouter une variable globale à la vue
+     * @param string $name
+     * @param $value
+     */
+    public function addGlobal(string $name, $value)
     {
         $this->twig->addGlobal($name, $value);
     }

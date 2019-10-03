@@ -6,9 +6,9 @@ class Reader implements ReaderInterface
 {
 
     /**
-     * @var array
+     * @var string
      */
-    private $directories = [];
+    private $directory;
 
 
 
@@ -40,9 +40,9 @@ class Reader implements ReaderInterface
      * @param array $directories
      * @param string|null $cache
      */
-    public function __construct(array $directories, ?string $cache = null)
+    public function __construct(string $directory, ?string $cache = null)
     {
-        $this->directories = $directories;
+        $this->directory = $directory;
         $this->cache = $cache;
     }
 
@@ -71,24 +71,22 @@ class Reader implements ReaderInterface
      */
     private function calculateClassList(): void
     {
-        foreach ($this->directories as $directory) {
-            $directoryIterator = new \RecursiveDirectoryIterator(realpath($directory));
-            $interator = new \RecursiveIteratorIterator($directoryIterator);
-            $filter = new \RegexIterator(
-                $interator,
-                '/^.+Controller\.php$/i',
-                \RecursiveRegexIterator::GET_MATCH
-            );
-            // walk through all the controller files and build up a list of classes
-            foreach ($filter as $fileName => $foo) {
-                // fetch the namespace and the class name
-                $classContent = file_get_contents($fileName);
+        $directoryIterator = new \RecursiveDirectoryIterator(realpath($this->directory));
+        $interator = new \RecursiveIteratorIterator($directoryIterator);
+        $filter = new \RegexIterator(
+            $interator,
+            '/^.+Controller\.php$/i',
+            \RecursiveRegexIterator::GET_MATCH
+        );
+        // walk through all the controller files and build up a list of classes
+        foreach ($filter as $fileName => $foo) {
+            // fetch the namespace and the class name
+            $classContent = file_get_contents($fileName);
 
-                preg_match("/\s+namespace\s+(.*?);/i", $classContent, $classNamespace);
-                preg_match("/\s+class\s+(.*?)[\s{]/i", $classContent, $className);
-                // and add it to the class list
-                $this->classlist[] = trim($classNamespace[1]) . "\\" . trim($className[1]);
-            }
+            preg_match("/\s+namespace\s+(.*?);/i", $classContent, $classNamespace);
+            preg_match("/\s+class\s+(.*?)[\s{]/i", $classContent, $className);
+            // and add it to the class list
+            $this->classlist[] = trim($classNamespace[1]) . "\\" . trim($className[1]);
         }
     }
 

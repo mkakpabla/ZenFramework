@@ -2,9 +2,10 @@
 namespace App\Controllers;
 
 use App\Models\Post;
-use Framework\Controller;
+use Framework\AbstractController;
+use Psr\Http\Message\ServerRequestInterface;
 
-class PostsController extends Controller
+class PostsController extends AbstractController
 {
 
     /**
@@ -15,6 +16,16 @@ class PostsController extends Controller
         $posts = $this->container->get(Post::class)->all();
         return $this->render('posts.index', compact('posts'));
     }
+
+    /**
+     * @Route('post', '/posts', 'posts.store')
+     */
+    public function store(ServerRequestInterface $request)
+    {
+        dd($request->getParsedBody());
+    }
+
+
     /**
      * @Route('get', '/posts/{slug}', 'posts.show')
      * @param $slug

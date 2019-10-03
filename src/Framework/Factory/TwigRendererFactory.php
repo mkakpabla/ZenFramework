@@ -3,6 +3,7 @@
 namespace Framework\Factory;
 
 use Framework\Env;
+use Framework\Extensions\TwigRouteExtension;
 use Framework\Renderer\TwigRenderer;
 use Framework\Session\SessionInterface;
 use Psr\Container\ContainerInterface;
@@ -14,14 +15,13 @@ class TwigRendererFactory
 
     public function __invoke(ContainerInterface $container)
     {
-        $loader = new FilesystemLoader($container->get('view.path'));
+        $twigConfig = (object)$container->get('twig');
+        $loader = new FilesystemLoader($twigConfig->paths);
         $twig = new Environment($loader, [
-            'cache' => $container->get('cache.path') ?: false
+            'cache' => $twigConfig->cache
         ]);
-        if ($container->has('twig.extensions')) {
-            foreach ($container->get('twig.extensions') as $extension) {
-                $twig->addExtension($extension);
-            }
+        foreach ($twigConfig->extensions as $extension) {
+            $twig->addExtension($container->get($extension));
         }
         return new TwigRenderer($twig);
     }

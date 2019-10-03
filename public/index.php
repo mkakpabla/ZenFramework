@@ -1,15 +1,9 @@
 <?php
-
-require "../vendor/autoload.php";
-
 use Framework\App;
 use GuzzleHttp\Psr7\ServerRequest;
-use DI\ContainerBuilder;
 use function Http\Response\send;
 
-$builder = new ContainerBuilder();
-$builder->addDefinitions('../config/config.php');
-$container = $builder->build();
+require '../config/bootstrap.php';
 
 // Création d'un application
 $app = (new App($container))

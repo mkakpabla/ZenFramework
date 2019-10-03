@@ -2,9 +2,7 @@
 
 namespace Framework\Middlewares;
 
-use Framework\Env;
 use Framework\Router\Annotation\Reader;
-use Framework\Router\Router;
 use Exception;
 use GuzzleHttp\Psr7\Response;
 use Psr\Container\ContainerInterface;
@@ -28,8 +26,8 @@ class RouterMiddleware implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $route = $this->getRoutes()->match($request);
-
+        $router = $this->container->get('router');
+        $route = $router->match($request);
         if ($route) {
             if (is_array($route->getHandler())) {
                 $params = $route->getAttributes();
@@ -47,13 +45,5 @@ class RouterMiddleware implements MiddlewareInterface
             }
         }
         return  $handler->handle($request);
-    }
-
-
-    private function getRoutes()
-    {
-        $reader = new Reader($this->container->get('controller.path'), $this->container->get('cache.path'));
-        $reader->run();
-        return $this->container->get(Router::class)->addRoutes($reader->getRoutes());
     }
 }

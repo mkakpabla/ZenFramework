@@ -1,6 +1,4 @@
 <?php
-
-
 namespace Framework\Router;
 
 use Psr\Http\Message\ServerRequestInterface;
