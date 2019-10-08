@@ -7,10 +7,6 @@ require __DIR__ . '/vendor/autoload.php';
 use Framework\Commands\GenerateController;
 use Framework\Commands\GenerateMiddleware;
 use Framework\Commands\GenerateModel;
-use Framework\Commands\Phinx\GenerateMigration;
-use Framework\Commands\Phinx\GenerateSeeder;
-use Framework\Commands\Phinx\Migrate;
-use Framework\Commands\Phinx\SeedRun;
 use Symfony\Component\Console\Application;
 
 $application = new Application('Console', '1.0.0');
@@ -19,9 +15,5 @@ $application = new Application('Console', '1.0.0');
 $application->add(new GenerateController());
 $application->add(new GenerateMiddleware());
 $application->add(new GenerateModel());
-$application->add(new Migrate());
-$application->add(new SeedRun());
-$application->add(new GenerateMigration());
-$application->add(new GenerateSeeder());
 
 $application->run();

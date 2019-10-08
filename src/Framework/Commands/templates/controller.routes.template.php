@@ -1,19 +1,14 @@
 <?php
 namespace App\Controllers;
 
-use Components\Controller;
+use Framework\AbstractController;
 use Psr\Http\Message\ServerRequestInterface;
 
-/**
- * @BaseRoute /baseroute
- */
-class PregReplace extends Controller
+class PregReplace extends AbstractController
 {
 
-
     /**
-     * @Route [GET] / (baseroute.index)
-     * @return string
+     * @Route('get', '/posts', 'posts.index')
      */
     public function index()
     {
@@ -21,9 +16,27 @@ class PregReplace extends Controller
     }
 
     /**
-     * @Route [GET] /{id} (baseroute.show)
+     * @Route('post', '/posts/create', 'posts.store')
+     * @param ServerRequestInterface $request
+     */
+    public function create(ServerRequestInterface $request)
+    {
+        //
+    }
+
+    /**
+     * @Route('post', '/posts', 'posts.store')
+     * @param ServerRequestInterface $request
+     */
+    public function store(ServerRequestInterface $request)
+    {
+        //
+    }
+
+
+    /**
+     * @Route('get', '/posts/{id}', 'posts.show')
      * @param $id
-     * @return string
      */
     public function show($id)
     {

@@ -6,5 +6,4 @@ use Framework\AbstractModel;
 class PregReplace extends AbstractModel
 {
 
-
 }

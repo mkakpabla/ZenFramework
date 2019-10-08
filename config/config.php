@@ -1,9 +1,5 @@
 <?php
 
-use Framework\Env;
-use Framework\Extensions\FlashExtension;
-use Framework\Extensions\FormExtension;
-use Framework\Extensions\TwigRouteExtension;
 use Framework\Factory\PdoFactory;
 use Framework\Factory\SwiftMailerFactory;
 use Framework\Factory\TwigRendererFactory;

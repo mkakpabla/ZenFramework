@@ -3,7 +3,7 @@
 
 namespace Framework\Security;
 
-interface UserInterface
+interface AuthenticatableInterface
 {
 
     public function getUsername(): string;

@@ -1,13 +1,11 @@
 <?php
 namespace App\Controllers;
 
-use Components\Controller;
+use Framework\AbstractController;
 use Psr\Http\Message\ServerRequestInterface;
 
-/**
- * @BaseRoute /
- */
-class PregReplace extends Controller
+class PregReplace extends AbstractController
 {
     //
 }
+

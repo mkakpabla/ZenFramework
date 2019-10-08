@@ -5,20 +5,13 @@ namespace Framework;
 
 abstract class AbstractModel
 {
+    use Validator;
 
     protected $table;
 
     protected $rules = [];
-    /**
-     * @var \Envms\FluentPDO\Query
-     */
-    private $query;
 
-
-    public function __construct(\Envms\FluentPDO\Query $query)
-    {
-        $this->query = $query;
-    }
+    /*
 
     public function insert(array $inputs)
     {
@@ -71,5 +64,5 @@ abstract class AbstractModel
             return $table;
         }
         return $this->table;
-    }
+    } */
 }

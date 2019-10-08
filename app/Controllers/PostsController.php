@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use App\Models\Post;
+use Exception;
 use Framework\AbstractController;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -13,8 +14,7 @@ class PostsController extends AbstractController
      */
     public function index()
     {
-        $posts = $this->container->get(Post::class)->all();
-        return $this->render('posts.index', compact('posts'));
+        return $this->render('posts.index');
     }
 
     /**
@@ -23,7 +23,6 @@ class PostsController extends AbstractController
      */
     public function store(ServerRequestInterface $request)
     {
-        dd($request->getParsedBody());
     }
 
 
@@ -31,11 +30,10 @@ class PostsController extends AbstractController
      * @Route('get', '/posts/{slug}', 'posts.show')
      * @param $slug
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function show($slug)
     {
-        $post = $this->container->get(Post::class)->get('slug', $slug);
-        return $this->render('posts.show', compact('post'));
+        return $this->render('posts.show');
     }
 }
