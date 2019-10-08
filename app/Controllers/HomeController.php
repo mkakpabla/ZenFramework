@@ -1,9 +1,9 @@
 <?php
 
-
 namespace App\Controllers;
 
 use Framework\AbstractController;
+use Swift_Mailer;
 use Swift_Message;
 
 class HomeController extends AbstractController
@@ -12,8 +12,10 @@ class HomeController extends AbstractController
 
     /**
      * @Route('get', '/', 'home')
+     * @param Swift_Mailer $mailer
+     * @return string
      */
-    public function index(\Swift_Mailer $mailer)
+    public function index(Swift_Mailer $mailer)
     {
         // Create a message
         /*
@@ -21,7 +23,7 @@ class HomeController extends AbstractController
             ->setFrom(['john@doe.com' => 'John Doe'])
             ->setTo(['receiver@domain.org', 'other@domain.org' => 'A name'])
             ->setBody(
-                $this->render(
+                $this->renderView(
                     'emails.text',
                     ['name' => 'michel']
                 ),

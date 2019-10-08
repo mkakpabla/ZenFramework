@@ -19,20 +19,23 @@ class FlashService
         $this->session = $session;
     }
 
-    public function success(string $message)
+    /**
+     * Adds a flash message to the session for type.
+     * @param string $type
+     * @param string $message
+     */
+    public function set(string $type, string $message)
     {
-        $flash = $this->session->get($this->sessionKey, []);
-        $flash['success'] = $message;
+        $flash = [];
+        $flash[$type] = $message;
         $this->session->set($this->sessionKey, $flash);
     }
 
-    public function error(string $message)
-    {
-        $flash = $this->session->get($this->sessionKey, []);
-        $flash['error'] = $message;
-        $this->session->set($this->sessionKey, $flash);
-    }
-
+    /**
+     * Get a flash message to the current session for type.
+     * @param string $type
+     * @return string|null
+     */
     public function get(string $type): ?string
     {
         if (is_null($this->messages)) {

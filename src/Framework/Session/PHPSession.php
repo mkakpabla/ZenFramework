@@ -6,7 +6,7 @@ class PHPSession implements SessionInterface, \ArrayAccess
 {
 
     /**
-     * Assure que la Session est démarrée
+     * Ensure the session is started
      */
     private function ensureStarted()
     {
@@ -15,8 +15,14 @@ class PHPSession implements SessionInterface, \ArrayAccess
         }
     }
 
+    public function has(string $key): bool
+    {
+        $this->ensureStarted();
+        return array_key_exists($key, $_SESSION);
+    }
+
     /**
-     * Récupère une information en Session
+     * Get information in session
      * @param string $key
      * @param mixed $default
      * @return mixed
@@ -31,8 +37,7 @@ class PHPSession implements SessionInterface, \ArrayAccess
     }
 
     /**
-     * Ajoute une information en Session
-     *
+     * Add information in session
      * @param string $key
      * @param $value
      * @return mixed
@@ -44,7 +49,7 @@ class PHPSession implements SessionInterface, \ArrayAccess
     }
 
     /**
-     * Supprime une clef en session
+     * Delete key in session
      * @param string $key
      */
     public function delete(string $key): void

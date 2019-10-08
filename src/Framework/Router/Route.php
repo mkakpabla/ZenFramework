@@ -69,7 +69,10 @@ class Route
             } catch (Exception $e) {
                 return $e->getMessage();
             }
-            return [$controller, $action];
+            return [
+                'controller' => $controller,
+                'method' => $action
+            ];
         }
         return $this->handler;
     }

@@ -4,9 +4,11 @@
 
     <div class="container">
         <h1>Page de Contact</h1>
+        {% if flash('success') %}
         <div class="alert alert-success">
             {{ flash('success') }}
         </div>
+        {% endif %}
         <form action="{{ route('contacts.store') }}" method="POST">
             <div class="row">
                 <div class="col-md-4 form-group">

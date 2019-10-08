@@ -31,7 +31,7 @@ class Session implements SessionInterface
         $_SESSION[$key] = $value;
     }
 
-    public function has($key)
+    public function has(string $key): bool
     {
         $this->sessionStart();
         return isset($_SESSION[$key]);

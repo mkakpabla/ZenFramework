@@ -2,7 +2,6 @@
 
 namespace Framework\Middlewares;
 
-use Framework\Router\Annotation\Reader;
 use Exception;
 use GuzzleHttp\Psr7\Response;
 use Psr\Container\ContainerInterface;
@@ -30,15 +29,15 @@ class RouterMiddleware implements MiddlewareInterface
         $route = $router->match($request);
         if ($route) {
             if (is_array($route->getHandler())) {
-                $params = $route->getAttributes();
-                $params['request'] = $request;
-                $response = $this->container->call($route->getHandler(), $params);
-                if ($response instanceof Response) {
-                    return $response;
-                }
-                return new Response(200, [], $response);
+                $controller = ($this->container->get($route->getHandler()['controller']))
+                    ->setContainer($this->container);
+                $method = $route->getHandler()['method'];
+                return $this->container
+                    ->call([$controller, $method], array_merge(
+                        $route->getAttributes(), ['request' => $request]));
             } elseif (is_callable($route->getHandler())) {
-                $response =  $this->container->call($route->getHandler(), $route->getAttributes());
+                $response =  $this->container->call($route->getHandler(), array_merge(
+                    $route->getAttributes(), ['request' => $request]));
                 return new Response(200, [], $response);
             } else {
                 throw new Exception('Handler is not type array or callable');

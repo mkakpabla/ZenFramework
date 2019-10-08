@@ -19,6 +19,7 @@ class PostsController extends AbstractController
 
     /**
      * @Route('post', '/posts', 'posts.store')
+     * @param ServerRequestInterface $request
      */
     public function store(ServerRequestInterface $request)
     {

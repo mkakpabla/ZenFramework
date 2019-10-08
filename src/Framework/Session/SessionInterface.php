@@ -4,6 +4,14 @@ namespace Framework\Session;
 interface SessionInterface
 {
 
+
+    /***
+     * Verifie si la clé existe
+     * @param string $key
+     * @return bool
+     */
+    public function has(string $key): bool;
+
     /**
      * Récupère une information en Session
      * @param string $key

@@ -2,8 +2,11 @@
 namespace Framework;
 
 use Framework\Renderer\RendererInterface;
+use Framework\Session\FlashService;
+use GuzzleHttp\Psr7\MessageTrait;
 use GuzzleHttp\Psr7\Response;
 use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ResponseInterface;
 
 abstract class AbstractController
 {
@@ -15,21 +18,33 @@ abstract class AbstractController
     /***
      * Controller constructor.
      * @param ContainerInterface $container
+     * @return AbstractController
      */
-    public function __construct(ContainerInterface $container)
+    public function setContainer(ContainerInterface $container)
     {
         $this->container = $container;
+        return $this;
     }
 
     /***
      * Returns a rendered view.
      * @param string $view
      * @param array|null $data
-     * @return string
+     * @return ResponseInterface
      */
-    protected function render(string  $view, ?array $data = []): string
+    protected function render(string  $view, ?array $data = []): ResponseInterface
     {
-        return $this->container->get(RendererInterface::class)->render($view, $data);
+        $response = $this->container
+            ->get(RendererInterface::class)
+            ->render($view, $data);
+        return new Response(200, [], $response);
+    }
+
+    protected function renderView(string  $view, ?array $data = []): string
+    {
+        return $this->container
+            ->get(RendererInterface::class)
+            ->render($view, $data);
     }
 
 
@@ -37,7 +52,7 @@ abstract class AbstractController
      * Returns a RedirectResponse to the given route name with the given parameters.
      * @param string $routeName
      * @param array|null $params
-     * @return \GuzzleHttp\Psr7\MessageTrait|Response
+     * @return MessageTrait|Response
      */
     protected function redirect(string $routeName, ?array $params = [])
     {
@@ -55,8 +70,6 @@ abstract class AbstractController
      */
     protected function addFlash(string $type, string $message)
     {
-        $flash = [];
-        $flash[$type] = $message;
-        $this->container->get('session')->set('flash', $flash);
+        $this->container->get(FlashService::class)->set($type, $message);
     }
 }
