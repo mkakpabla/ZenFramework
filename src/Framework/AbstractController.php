@@ -1,7 +1,7 @@
 <?php
 namespace Framework;
 
-use Framework\Renderer\RendererInterface;
+use Framework\View\RendererInterface;
 use Framework\Session\FlashService;
 use GuzzleHttp\Psr7\MessageTrait;
 use GuzzleHttp\Psr7\Response;

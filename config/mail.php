@@ -2,11 +2,11 @@
 return [
 
     'mail' => [
-        'driver'    => env('MAIL_DRIVER', 'smtp'),
-        'host'      => env('MAIL_HOST', 'localhost'),
-        'port'      => env('MAIL_PORT', 1025),
-        'username'  => env('MAIL_USERNAME'),
-        'password'  => env('MAIL_PASSWORD'),
+        'driver'    => getenv('MAIL_DRIVER') ?: 'smtp',
+        'host'      => getenv('MAIL_HOST') ?: 'localhost',
+        'port'      => getenv('MAIL_PORT') ?: 1025,
+        'username'  => getenv('MAIL_USERNAME'),
+        'password'  => getenv('MAIL_PASSWORD'),
     ]
 
 ];

@@ -1,6 +1,7 @@
 <?php
 namespace Framework\Router;
 
+use Aura\Router\Exception\RouteNotFound;
 use Aura\Router\RouterContainer;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -65,7 +66,7 @@ class Router
      * @param string $name
      * @param array|null $params
      * @return false|string
-     * @throws \Aura\Router\Exception\RouteNotFound
+     * @throws RouteNotFound
      */
     public function uri(string $name, ?array $params = [])
     {
@@ -92,7 +93,7 @@ class Router
      * @param ServerRequestInterface $request
      * @return Route|null
      */
-    public function match(ServerRequestInterface $request)
+    public function match(ServerRequestInterface $request): ?Route
     {
         $matcher = $this->routerContainer->getMatcher();
         $route = $matcher->match($request);

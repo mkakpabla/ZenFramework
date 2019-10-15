@@ -1,11 +1,7 @@
 <?php
-
 namespace Framework\Factory;
 
-use Framework\Env;
-use Framework\Extensions\TwigRouteExtension;
-use Framework\Renderer\TwigRenderer;
-use Framework\Session\SessionInterface;
+use Framework\View\TwigRenderer;
 use Psr\Container\ContainerInterface;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;

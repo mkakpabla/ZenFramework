@@ -1,6 +1,7 @@
 <?php
 namespace Framework\Router;
 
+use Aura\Router\Exception\RouteNotFound;
 use Psr\Http\Message\ServerRequestInterface;
 
 interface RouterInterface
@@ -38,7 +39,7 @@ interface RouterInterface
      * @param string $name
      * @param array|null $params
      * @return false|string
-     * @throws \Aura\Router\Exception\RouteNotFound
+     * @throws RouteNotFound
      */
     public function uri(string $name, ?array $params = []);
 

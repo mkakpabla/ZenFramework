@@ -6,8 +6,8 @@ namespace Framework\Security;
 interface AuthenticatableInterface
 {
 
-    public function getUsername(): string;
 
+    public function login(array $credentials);
 
-    public function getRole(): array;
+    public function getUser();
 }

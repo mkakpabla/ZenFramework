@@ -1,5 +1,5 @@
 <?php
-namespace Framework\Extensions;
+namespace Framework\View;
 
 use Framework\Session\FlashService;
 use Twig\Extension\AbstractExtension;

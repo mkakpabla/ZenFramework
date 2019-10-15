@@ -2,6 +2,8 @@
 
 namespace Framework\Router\Annotation;
 
+use ReflectionException;
+
 class Reader implements ReaderInterface
 {
 
@@ -37,7 +39,7 @@ class Reader implements ReaderInterface
 
     /***
      * Reader constructor.
-     * @param array $directories
+     * @param string $directory
      * @param string|null $cache
      */
     public function __construct(string $directory, ?string $cache = null)
@@ -48,7 +50,7 @@ class Reader implements ReaderInterface
 
     /**
      * @return void
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function run(): void
     {
@@ -94,7 +96,7 @@ class Reader implements ReaderInterface
     /**
      * builds the routes out of the class annotations
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     private function buildRoutes(): void
     {

@@ -3,17 +3,56 @@
 
 namespace Framework\Security;
 
+use Framework\AbstractModel;
+use Framework\Session\SessionInterface;
+use Zen\Database\Query;
 
-class Authenticatable implements AuthenticatableInterface
+class Authenticatable extends AbstractModel implements AuthenticatableInterface
 {
 
-    public function getUsername(): string
+    protected $guard = 'user';
+    /**
+     * @var SessionInterface
+     */
+    private $session;
+    /**
+     * @var PasswordInerface
+     */
+    private $password;
+
+    private $auth;
+
+
+    public function __construct(Query $query, SessionInterface $session, PasswordInerface $password)
     {
-        // TODO: Implement getUsername() method.
+        parent::__construct($query);
+        $this->session = $session;
+        $this->password = $password;
     }
 
-    public function getRole(): array
+    public function login(array $credentials)
     {
-        // TODO: Implement getRole() method.
+        $credentialsKey = array_keys($credentials);
+        $this->auth = $this->get($credentialsKey[0], $credentials[$credentialsKey[0]]);
+        if ($this->auth && $this->password->verify($credentials['password'], $this->auth->password)) {
+            $this->session->set($this->guard, $this->auth->id);
+            return $this->auth;
+        }
+        return null;
+    }
+
+    public function getUser()
+    {
+        if ($this->auth) {
+            return $this->auth;
+        }
+        $userId = $this->session->get($this->guard);
+        if ($userId) {
+            $this->auth = $this->find($userId);
+            if ($this->auth) {
+                return $this->auth;
+            }
+        }
+        return null;
     }
 }

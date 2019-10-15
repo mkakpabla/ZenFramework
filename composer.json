@@ -22,7 +22,8 @@
         "ext-json": "*",
         "symfony/routing": "^4.3",
         "mkakpabla/validation": "^1.0",
-        "swiftmailer/swiftmailer": "^6.2"
+        "swiftmailer/swiftmailer": "^6.2",
+        "mkakpabla/query-builder": "^1.0"
     },
     "autoload": {
         "psr-4": {

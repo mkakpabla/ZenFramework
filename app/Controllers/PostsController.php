@@ -10,11 +10,22 @@ class PostsController extends AbstractController
 {
 
     /**
+     * @var Post
+     */
+    private $post;
+
+    public function __construct(Post $post)
+    {
+        $this->post = $post;
+    }
+
+    /**
      * @Route('get', '/posts', 'posts.index')
      */
     public function index()
     {
-        return $this->render('posts.index');
+        $posts = $this->post->all();
+        return $this->render('posts.index', compact('posts'));
     }
 
     /**

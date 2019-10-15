@@ -1,8 +1,8 @@
 <?php
 
-use Framework\Extensions\FlashExtension;
-use Framework\Extensions\FormExtension;
-use Framework\Extensions\TwigRouteExtension;
+use Framework\View\FlashExtension;
+use Framework\View\FormExtension;
+use Framework\View\TwigRouteExtension;
 
 return [
 

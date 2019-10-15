@@ -2,9 +2,9 @@
 return [
 
     'database' => [
-        'host'      => env('DB_HOST', 'localhost'),
-        'name'      => env('DB_DATABASE', 'zen'),
-        'username'  => env('DB_USERNAME', 'root'),
-        'password'  => env('DB_PASSWORD', 'root'),
+        'host'      => getenv('DB_HOST') ?: 'localhost',
+        'name'      => getenv('DB_DATABASE') ?: 'zen',
+        'username'  => getenv('DB_USERNAME') ?: 'root',
+        'password'  => getenv('DB_PASSWORD') ?: 'root',
     ],
 ];

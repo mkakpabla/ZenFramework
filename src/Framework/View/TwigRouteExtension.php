@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Framework\Extensions;
+namespace Framework\View;
 
 use Psr\Container\ContainerInterface;
 use Twig\Extension\AbstractExtension;

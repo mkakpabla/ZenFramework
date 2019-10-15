@@ -1,5 +1,8 @@
 <?php
+
+use App\Middlewares\UserLoggedMiddleware;
 use Framework\App;
+use Framework\Middlewares\ForbiddenExceptionMiddleware;
 use Framework\Middlewares\NotFoundMiddleware;
 use Framework\Middlewares\RouterMiddleware;
 use Framework\Middlewares\TraillingSlashMiddleware;
@@ -14,6 +17,8 @@ require '../config/bootstrap.php';
 $app = (new App($container))
     ->pipe(Whoops::class)
     ->pipe(TraillingSlashMiddleware::class)
+    ->pipe(ForbiddenExceptionMiddleware::class)
+    ->pipe(UserLoggedMiddleware::class)
     ->pipe(RouterMiddleware::class)
     ->pipe(NotFoundMiddleware::class)
     ->run(ServerRequest::fromGlobals());

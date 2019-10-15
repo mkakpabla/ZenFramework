@@ -3,7 +3,9 @@
 use Framework\Factory\PdoFactory;
 use Framework\Factory\SwiftMailerFactory;
 use Framework\Factory\TwigRendererFactory;
-use Framework\Renderer\RendererInterface;
+use Framework\View\RendererInterface;
+use Framework\Security\Password;
+use Framework\Security\PasswordInerface;
 use Framework\Session\PHPSession;
 use Framework\Session\SessionInterface;
 use function DI\factory;
@@ -18,5 +20,7 @@ return [
     Swift_Mailer::class => factory(SwiftMailerFactory::class),
 
     RendererInterface::class => factory(TwigRendererFactory::class),
+
+    PasswordInerface::class => get(Password::class),
 
 ];
