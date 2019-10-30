@@ -3,7 +3,6 @@
 
 namespace App\Modules\Auth\Actions;
 
-
 use Framework\AbstractAction;
 use Psr\Http\Message\ResponseInterface;
 

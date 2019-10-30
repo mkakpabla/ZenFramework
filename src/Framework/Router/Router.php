@@ -96,9 +96,7 @@ class Router
             try {
                 $this->$method($url, $action, $name);
             } catch (RouteAlreadyExists $e) {
-
             }
-
         }
     }
 
@@ -121,5 +119,4 @@ class Router
         $routes = $this->reader->buildRoutes($action);
         $this->addRoutes($routes);
     }
-
 }

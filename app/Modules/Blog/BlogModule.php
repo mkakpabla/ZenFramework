@@ -3,7 +3,6 @@
 
 namespace App\Modules\Blog;
 
-
 use App\Modules\Blog\Actions\HomeAction;
 use App\Modules\Blog\Actions\PostsAction;
 use Framework\Router\Router;
@@ -18,5 +17,4 @@ class BlogModule
         $router->addAction(HomeAction::class);
         $router->addAction(PostsAction::class);
     }
-
 }

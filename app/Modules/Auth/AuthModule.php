@@ -3,7 +3,6 @@
 
 namespace App\Modules\Auth;
 
-
 use App\Modules\Auth\Actions\AccountAction;
 use App\Modules\Auth\Actions\LoginAction;
 use App\Modules\Auth\Actions\RegisterAction;
@@ -18,5 +17,4 @@ class AuthModule
         $router->addAction(RegisterAction::class);
         $router->addAction(AccountAction::class);
     }
-
 }

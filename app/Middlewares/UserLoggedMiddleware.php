@@ -3,7 +3,6 @@
 
 namespace App\Middlewares;
 
-
 use App\Models\User;
 use Framework\ForbiddenException;
 use Psr\Container\ContainerInterface;

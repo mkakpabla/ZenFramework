@@ -3,7 +3,6 @@
 
 namespace App\Modules\Auth\Actions;
 
-
 use Framework\AbstractAction;
 
 class AccountAction extends AbstractAction
@@ -16,5 +15,4 @@ class AccountAction extends AbstractAction
     {
         return $this->render('users.account');
     }
-
 }

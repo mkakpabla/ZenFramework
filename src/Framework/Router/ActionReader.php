@@ -3,7 +3,6 @@
 
 namespace Framework\Router;
 
-
 use ReflectionException;
 
 class ActionReader
@@ -115,5 +114,4 @@ class ActionReader
         }
         return $this->routes;
     }
-
 }

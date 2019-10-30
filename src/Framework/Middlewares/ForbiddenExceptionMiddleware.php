@@ -3,7 +3,6 @@
 
 namespace Framework\Middlewares;
 
-
 use Framework\ForbiddenException;
 use GuzzleHttp\Psr7\Response;
 use Psr\Container\ContainerInterface;

@@ -87,7 +87,7 @@ abstract class AbstractModel
     {
         $validator = (new Validator($request->getParsedBody(), $this->rules))
             ->validate();
-        if (!$validator->isValid()){
+        if (!$validator->isValid()) {
             $uri = $request->getServerParams()['HTTP_REFERER'];
             header('Location: '. $uri);
             exit();

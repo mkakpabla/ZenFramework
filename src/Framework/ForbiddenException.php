@@ -3,7 +3,6 @@
 
 namespace Framework;
 
-
 class ForbiddenException extends \Exception
 {
 

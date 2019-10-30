@@ -3,7 +3,6 @@
 
 namespace Framework\Security;
 
-
 interface PasswordInerface
 {
 

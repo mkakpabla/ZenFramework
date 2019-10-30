@@ -3,7 +3,6 @@
 
 namespace Framework\Security;
 
-
 class Password implements PasswordInerface
 {
 

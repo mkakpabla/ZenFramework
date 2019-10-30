@@ -3,7 +3,6 @@
 
 namespace Framework;
 
-
 use Framework\Session\FlashService;
 use Framework\View\RendererInterface;
 use GuzzleHttp\Psr7\MessageTrait;

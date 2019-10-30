@@ -40,10 +40,14 @@ class RouterMiddleware implements MiddlewareInterface
                 $method = $route->getHandler()['method'];
                 return $this->container
                     ->call([$controller, $method], array_merge(
-                        $route->getAttributes(), ['request' => $request]));
+                        $route->getAttributes(),
+                        ['request' => $request]
+                    ));
             } elseif (is_callable($route->getHandler())) {
                 $response =  $this->container->call($route->getHandler(), array_merge(
-                    $route->getAttributes(), ['request' => $request]));
+                    $route->getAttributes(),
+                    ['request' => $request]
+                ));
                 return new Response(200, [], $response);
             } else {
                 throw new Exception('Handler is not type array or callable');

@@ -24,5 +24,4 @@ class RegisterAction extends AbstractAction
     {
         return $this->render('users.register');
     }
-
 }

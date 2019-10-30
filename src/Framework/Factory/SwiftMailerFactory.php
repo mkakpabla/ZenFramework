@@ -18,5 +18,4 @@ class SwiftMailerFactory
         ;
         return new \Swift_Mailer($transport);
     }
-
 }
