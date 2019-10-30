@@ -1,0 +1,9 @@
+{% extends 'layouts/default.twig' %}
+{% block content %}
+    <div class="container mt-5">
+        <div class="alert alert-success">
+            Vous êtes connecter
+        </div>
+        <a class="btn btn-danger" href="{{ route('logout') }}">Se Déconnecter</a>
+    </div>
+{% endblock %}

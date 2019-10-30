@@ -1,0 +1,15 @@
+{% extends 'layouts/default.twig' %}
+{% block content %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-5">
+                <h2>Se Connecter</h2>
+                <form action="{{ route('login') }}" method="post">
+                    <input class="form-control mb-3" type="text" name="username" placeholder="Identifient">
+                    <input class="form-control" type="password" name="password" placeholder="Mot de passe">
+                    <button class="btn btn-primary mt-3">Se Connecter</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

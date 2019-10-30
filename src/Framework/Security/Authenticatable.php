@@ -41,6 +41,11 @@ class Authenticatable extends AbstractModel implements AuthenticatableInterface
         return null;
     }
 
+    public function logout()
+    {
+        $this->session->delete($this->guard);
+    }
+
     public function getUser()
     {
         if ($this->auth) {

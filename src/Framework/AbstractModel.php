@@ -26,6 +26,10 @@ abstract class AbstractModel
         $this->query = $query;
     }
 
+    public function __get(string $name)
+    {
+        return $this->$name;
+    }
 
 
     public function insert(array $inputs)

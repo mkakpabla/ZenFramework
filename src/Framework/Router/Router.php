@@ -1,6 +1,7 @@
 <?php
 namespace Framework\Router;
 
+use Aura\Router\Exception\RouteAlreadyExists;
 use Aura\Router\Exception\RouteNotFound;
 use Aura\Router\RouterContainer;
 use Psr\Http\Message\ServerRequestInterface;
@@ -8,18 +9,26 @@ use Psr\Http\Message\ServerRequestInterface;
 class Router
 {
 
+
+    private $routes = [];
     /**
      * @var RouterContainer
      */
     private $routerContainer;
+    /**
+     * @var ActionReader
+     */
+    private $reader;
 
     /**
      * Router constructor.
      * @param RouterContainer $routerContainer
+     * @param ActionReader $reader
      */
-    public function __construct(RouterContainer $routerContainer)
+    public function __construct(RouterContainer $routerContainer, ActionReader $reader)
     {
         $this->routerContainer = $routerContainer;
+        $this->reader = $reader;
     }
 
     /**
@@ -84,9 +93,13 @@ class Router
             $url = $route['route'];
             $action = $route['action'];
             $name = $route['name'];
-            $this->$method($url, $action, $name);
+            try {
+                $this->$method($url, $action, $name);
+            } catch (RouteAlreadyExists $e) {
+
+            }
+
         }
-        return $this;
     }
 
     /**
@@ -102,4 +115,11 @@ class Router
         }
         return null;
     }
+
+    public function addAction(string $action)
+    {
+        $routes = $this->reader->buildRoutes($action);
+        $this->addRoutes($routes);
+    }
+
 }

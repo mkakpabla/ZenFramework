@@ -3,6 +3,7 @@
 namespace Framework\Middlewares;
 
 use Exception;
+use Framework\Router\Router;
 use GuzzleHttp\Psr7\Response;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -16,16 +17,21 @@ class RouterMiddleware implements MiddlewareInterface
      * @var ContainerInterface
      */
     private $container;
+    /**
+     * @var Router
+     */
+    private $router;
 
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container, Router $router)
     {
+        $this->router = $router;
         $this->container = $container;
     }
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $router = $this->container->get('router');
+        $router = $this->router;
         $route = $router->match($request);
         if ($route) {
             if (is_array($route->getHandler())) {
