@@ -13,9 +13,9 @@ $builder = new ContainerBuilder();
 
 // Ajout des definitions au container
 $builder->addDefinitions(
-    '../config/config.php',
-    '../config/mail.php',
-    '../config/twig.php',
-    '../config/database.php'
+    '../config/app.config.php',
+    '../config/mail.config.php',
+    '../config/twig.config.php',
+    '../config/database.config.php'
 );
 $container = $builder->build();

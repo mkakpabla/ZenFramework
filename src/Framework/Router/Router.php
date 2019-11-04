@@ -5,12 +5,10 @@ use Aura\Router\Exception\RouteAlreadyExists;
 use Aura\Router\Exception\RouteNotFound;
 use Aura\Router\RouterContainer;
 use Psr\Http\Message\ServerRequestInterface;
+use ReflectionException;
 
 class Router
 {
-
-
-    private $routes = [];
     /**
      * @var RouterContainer
      */
@@ -32,46 +30,18 @@ class Router
     }
 
     /**
-     * @param string $uri
-     * @param $handler
-     * @param string $name
+     * Ajouter les routes d'un action
+     * @param string $action
+     * @throws ReflectionException
      */
-    public function get(string $uri, $handler, string $name)
+    public function addAction(string $action)
     {
-        $this->routerContainer->getMap()->get($name, $uri, $handler);
+        $routes = $this->reader->buildRoutes($action);
+        $this->addRoutes($routes);
     }
 
     /**
-     * @param string $uri
-     * @param $handler
-     * @param string $name
-     */
-    public function post(string $uri, $handler, string $name)
-    {
-        $this->routerContainer->getMap()->post($name, $uri, $handler);
-    }
-
-    /**
-     * @param string $uri
-     * @param $handler
-     * @param string $name
-     */
-    public function put(string $uri, $handler, string $name)
-    {
-        $this->routerContainer->getMap()->put($name, $uri, $handler);
-    }
-
-    /**
-     * @param string $uri
-     * @param $handler
-     * @param string $name
-     */
-    public function delete(string $uri, $handler, string $name)
-    {
-        $this->routerContainer->getMap()->delete($name, $uri, $handler);
-    }
-
-    /**
+     * Générer une route à partir du nom
      * @param string $name
      * @param array|null $params
      * @return false|string
@@ -80,24 +50,6 @@ class Router
     public function uri(string $name, ?array $params = [])
     {
         return $this->routerContainer->getGenerator()->generate($name, $params);
-    }
-
-    /**
-     * @param array $routes
-     * @return $this
-     */
-    public function addRoutes(array $routes)
-    {
-        foreach ($routes as $route) {
-            $method = $route['method'];
-            $url = $route['route'];
-            $action = $route['action'];
-            $name = $route['name'];
-            try {
-                $this->$method($url, $action, $name);
-            } catch (RouteAlreadyExists $e) {
-            }
-        }
     }
 
     /**
@@ -114,9 +66,22 @@ class Router
         return null;
     }
 
-    public function addAction(string $action)
+    /**
+     * Permet d'ajouter des routes
+     * @param array $routes
+     * @return void
+     */
+    private function addRoutes(array $routes): void
     {
-        $routes = $this->reader->buildRoutes($action);
-        $this->addRoutes($routes);
+        foreach ($routes as $route) {
+            $method = $route['method'];
+            $url = $route['route'];
+            $action = $route['action'];
+            $name = $route['name'];
+            try {
+                $this->routerContainer->getMap()->$method($name, $url, $action);
+            } catch (RouteAlreadyExists $e) {
+            }
+        }
     }
 }

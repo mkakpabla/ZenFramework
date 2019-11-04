@@ -3,6 +3,7 @@
 
 namespace Framework\Middlewares;
 
+use Framework\View\RendererInterface;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -11,6 +12,16 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 class NotFoundMiddleware implements MiddlewareInterface
 {
+
+    /**
+     * @var RendererInterface
+     */
+    private $renderer;
+
+    public function __construct(RendererInterface $renderer)
+    {
+        $this->renderer = $renderer;
+    }
 
     /**
      * Process an incoming server request.
@@ -24,6 +35,6 @@ class NotFoundMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        return new Response(404, [], '<h1>404 Not Found</h1>');
+        return new Response(404, [], $this->renderer->render('errors.404'));
     }
 }

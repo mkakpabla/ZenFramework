@@ -11,7 +11,7 @@ class HomeAction extends AbstractAction
     /**
      * @Route('get', '/', 'home')
      */
-    public function index()
+    public function home()
     {
         return $this->render('welcome');
     }

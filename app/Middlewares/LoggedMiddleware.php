@@ -5,40 +5,35 @@ namespace App\Middlewares;
 
 use App\Models\User;
 use Framework\ForbiddenException;
+use Framework\Router\Router;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class UserLoggedMiddleware implements MiddlewareInterface
+class LoggedMiddleware implements MiddlewareInterface
 {
 
     /**
      * @var User
      */
     private $user;
-
-    private $routes = [
-        'account'
-    ];
     /**
-     * @var ContainerInterface
+     * @var Router
      */
-    private $container;
+    private $router;
 
-    public function __construct(User $user, ContainerInterface $container)
+    public function __construct(User $user, Router $router)
     {
         $this->user = $user;
-        $this->container = $container;
+        $this->router = $router;
     }
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $router = $this->container->get('router');
-        $route = $router->match($request);
         $user = $this->user->getUser();
-        if (is_null($user) && in_array($route->getName(), $this->routes)) {
+        if (is_null($user)) {
             throw new ForbiddenException();
         }
         return $handler->handle($request);

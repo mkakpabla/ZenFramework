@@ -4,6 +4,7 @@
 namespace Framework\Middlewares;
 
 use Framework\ForbiddenException;
+use Framework\Router\Router;
 use GuzzleHttp\Psr7\Response;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -19,10 +20,14 @@ class ForbiddenExceptionMiddleware implements MiddlewareInterface
      * @var ContainerInterface
      */
     private $container;
+    /**
+     * @var Router
+     */
+    private $router;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(Router $router)
     {
-        $this->container = $container;
+        $this->router = $router;
     }
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
@@ -30,7 +35,7 @@ class ForbiddenExceptionMiddleware implements MiddlewareInterface
         try {
             return $handler->handle($request);
         } catch (ForbiddenException $e) {
-            $uri = $this->container->get('router')->uri('login');
+            $uri = $this->router->uri('login');
             return (new Response())
                 ->withStatus(301)
                 ->withHeader('location', $uri);

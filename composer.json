@@ -23,7 +23,8 @@
         "symfony/routing": "^4.3",
         "mkakpabla/validation": "^1.0",
         "swiftmailer/swiftmailer": "^6.2",
-        "mkakpabla/query-builder": "^1.0"
+        "mkakpabla/query-builder": "^1.0",
+        "propel/propel": "2.0.0-alpha8"
     },
     "autoload": {
         "psr-4": {
