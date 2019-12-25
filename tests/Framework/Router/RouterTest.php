@@ -4,7 +4,7 @@
 namespace Tests\Framework\Router;
 
 use Aura\Router\RouterContainer;
-use Framework\Router\ActionReader;
+use Framework\Router\RouteExtractor;
 use Framework\Router\Router;
 use GuzzleHttp\Psr7\ServerRequest;
 use PHPUnit\Framework\TestCase;
@@ -20,7 +20,7 @@ class RouterTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->router = new Router(new RouterContainer(), new ActionReader());
+        $this->router = new Router(new RouterContainer(), new RouteExtractor());
     }
 
     public function testGetMethodWithCallable()

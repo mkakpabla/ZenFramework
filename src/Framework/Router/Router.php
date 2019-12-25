@@ -14,30 +14,30 @@ class Router
      */
     private $routerContainer;
     /**
-     * @var ActionReader
+     * @var RouteExtractor
      */
-    private $reader;
+    private $extractor;
 
     /**
      * Router constructor.
      * @param RouterContainer $routerContainer
-     * @param ActionReader $reader
+     * @param RouteExtractor $extractor
      */
-    public function __construct(RouterContainer $routerContainer, ActionReader $reader)
+    public function __construct(RouterContainer $routerContainer, ?RouteExtractor $extractor = null)
     {
         $this->routerContainer = $routerContainer;
-        $this->reader = $reader;
+        $this->extractor = $extractor;
     }
 
     /**
      * Ajouter les routes d'un action
-     * @param string $action
      * @throws ReflectionException
      */
-    public function addAction(string $action)
+    public function extract(): self
     {
-        $routes = $this->reader->buildRoutes($action);
+        $routes = $this->extractor->run();
         $this->addRoutes($routes);
+        return $this;
     }
 
     /**

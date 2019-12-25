@@ -35,6 +35,6 @@ class NotFoundMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        return new Response(404, [], $this->renderer->render('errors.404'));
+        return new Response(404, [], "<h1>Page non trouvé</h1>");
     }
 }

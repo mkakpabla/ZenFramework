@@ -1,5 +1,5 @@
 {
-    "name": "michel/zenframework",
+    "name": "michel/xenfram",
     "description": "Personal Home Framework",
     "license": "MIT",
     "authors": [
@@ -11,7 +11,6 @@
     "require": {
         "vlucas/phpdotenv": "^3.4",
         "aura/router": "^3.1",
-        "guzzlehttp/psr7": "^1.6",
         "http-interop/response-sender": "^1.0",
         "psr/http-server-middleware": "^1.0",
         "ext-pdo": "*",
@@ -20,11 +19,12 @@
         "twig/twig": "^2.11",
         "php-di/php-di": "^6.0",
         "ext-json": "*",
-        "symfony/routing": "^4.3",
         "mkakpabla/validation": "^1.0",
         "swiftmailer/swiftmailer": "^6.2",
         "mkakpabla/query-builder": "^1.0",
-        "propel/propel": "2.0.0-alpha8"
+        "propel/propel": "2.0.0-alpha8",
+        "symfony/http-client": "^5.0",
+        "guzzlehttp/psr7": "^1.6"
     },
     "autoload": {
         "psr-4": {

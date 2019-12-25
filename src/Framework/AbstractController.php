@@ -10,7 +10,7 @@ use GuzzleHttp\Psr7\Response;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 
-abstract class AbstractAction
+abstract class AbstractController
 {
 
 
@@ -22,12 +22,10 @@ abstract class AbstractAction
     /***
      * Controller constructor.
      * @param ContainerInterface $container
-     * @return AbstractController
      */
-    public function setContainer(ContainerInterface $container)
+    public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
-        return $this;
     }
 
     /***

@@ -3,13 +3,10 @@
 
 namespace Framework;
 
-use Aura\Router\RouterContainer;
 use DI\Container;
 use DI\DependencyException;
 use DI\NotFoundException;
 use Exception;
-use Framework\Router\ActionReader;
-use Framework\Router\Router;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -39,7 +36,6 @@ class App implements RequestHandlerInterface
      */
     private $container;
 
-    private $modules = [];
 
 
     /**
@@ -75,12 +71,6 @@ class App implements RequestHandlerInterface
         $this->middlewares[] = $middleware;
         return $this;
     }
-
-    public function addModule(string $module)
-    {
-        $this->modules[] = $module;
-        return $this;
-    }
     /**
      * @param ServerRequestInterface $request
      * @return Response
@@ -88,9 +78,6 @@ class App implements RequestHandlerInterface
      */
     public function run(ServerRequestInterface $request): ResponseInterface
     {
-        foreach ($this->modules as $module) {
-            $this->container->get($module);
-        }
         return $this->handle($request);
     }
 
