@@ -1,12 +1,14 @@
 <?php
 
 
-namespace Framework;
+namespace Framework\Databases;
 
-use Psr\Http\Message\ServerRequestInterface;
+use App\Models\User;
 use Zen\Database\Query;
-use Zen\Validation\UndifedRuleException;
 use Zen\Validation\Validator;
+use Psr\Container\ContainerInterface;
+use Zen\Validation\UndifedRuleException;
+use Psr\Http\Message\ServerRequestInterface;
 
 abstract class AbstractModel
 {
@@ -15,15 +17,12 @@ abstract class AbstractModel
 
     protected $rules = [];
 
-    /**
-     * @var Query
-     */
-    private $query;
+    private $container;
 
 
-    public function __construct(Query $query)
+    public function __construct(ContainerInterface $container)
     {
-        $this->query = $query;
+        $this->container = $container;
     }
 
     public function __get(string $name)
@@ -43,9 +42,10 @@ abstract class AbstractModel
 
     public function all()
     {
-        return $this->query
+        return $this->getQuery()
             ->table($this->getTable())
             ->select('*')
+            ->into(User::class)
             ->fetchAll();
     }
 
@@ -103,5 +103,10 @@ abstract class AbstractModel
             return $table;
         }
         return $this->table;
+    }
+
+    private function getQuery(): Query
+    {
+        return $this->container->get(Query::class);
     }
 }

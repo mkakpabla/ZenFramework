@@ -1,12 +1,12 @@
 <?php
 
 use Framework\App;
-use Framework\Middlewares\NotFoundMiddleware;
-use Framework\Middlewares\RouterMiddleware;
-use Framework\Middlewares\TraillingSlashMiddleware;
-use GuzzleHttp\Psr7\ServerRequest;
 use Middlewares\Whoops;
 use function Http\Response\send;
+use GuzzleHttp\Psr7\ServerRequest;
+use Framework\Middlewares\RouterMiddleware;
+use Framework\Middlewares\NotFoundMiddleware;
+use Framework\Middlewares\TraillingSlashMiddleware;
 
 require '../config/bootstrap.php';
 

@@ -19,14 +19,7 @@ abstract class AbstractController
      */
     protected $container;
 
-    /***
-     * Controller constructor.
-     * @param ContainerInterface $container
-     */
-    public function __construct(ContainerInterface $container)
-    {
-        $this->container = $container;
-    }
+    
 
     /***
      * Returns a rendered view.
@@ -73,5 +66,11 @@ abstract class AbstractController
     protected function addFlash(string $type, string $message)
     {
         $this->container->get(FlashService::class)->set($type, $message);
+    }
+
+    public function setContainer(ContainerInterface $container)
+    {
+        $this->container = $container;
+        return $this;
     }
 }

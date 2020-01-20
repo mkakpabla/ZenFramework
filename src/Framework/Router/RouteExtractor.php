@@ -118,7 +118,7 @@ class RouteExtractor
                     );
                     foreach ((array)$matches as $match) {
                         $routeMethod = trim(strtolower($match[1]), "'");
-                        $routeName = trim(strtolower((string)$match[5]), "'");
+                        $routeName = trim((string)$match[5], "'");
                         $routeMethodUri = trim(strtolower($match[3]), "'");
                         if (isset($baseRoute)) {
                             $routeUri = preg_replace("/\/{2,}/is", "/", $baseRoute . $routeMethodUri);

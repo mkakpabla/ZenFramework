@@ -37,6 +37,7 @@ class RouterMiddleware implements MiddlewareInterface
             if (is_array($route->getHandler())) {
                 $controller = ($this->container->get($route->getHandler()['controller']));
                 $method = $route->getHandler()['method'];
+                $controller = (new $controller())->setContainer($this->container);  
                 return $this->container
                     ->call([$controller, $method], array_merge(
                         $route->getAttributes(),

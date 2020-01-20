@@ -3,11 +3,12 @@
 
 namespace Framework\Security;
 
-use Framework\AbstractModel;
-use Framework\Session\SessionInterface;
 use Zen\Database\Query;
+use Psr\Container\ContainerInterface;
+use Framework\Databases\AbstractModel;
+use Framework\Session\SessionInterface;
 
-class Authenticatable extends AbstractModel implements AuthenticatableInterface
+class Auth extends AbstractModel
 {
 
     protected $guard = 'user';
@@ -22,15 +23,12 @@ class Authenticatable extends AbstractModel implements AuthenticatableInterface
 
     private $auth;
 
-
-    public function __construct(Query $query, SessionInterface $session, PasswordInerface $password)
-    {
-        parent::__construct($query);
-        $this->session = $session;
-        $this->password = $password;
-    }
-
-    public function login(array $credentials)
+    
+    /**
+     * @param array $credentials
+     * @param string $redirectRoute
+     */
+    public function login(array $credentials, string $redirectRoute)
     {
         $credentialsKey = array_keys($credentials);
         $this->auth = $this->get($credentialsKey[0], $credentials[$credentialsKey[0]]);

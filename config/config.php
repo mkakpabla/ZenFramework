@@ -1,28 +1,30 @@
 <?php
 
+use Framework\Env;
+use App\Models\User;
+use function DI\get;
+use function DI\factory;
+use Framework\Security\Password;
 use Framework\Factory\PdoFactory;
+use Framework\Session\PHPSession;
+use Framework\View\FormExtension;
+use Framework\View\FlashExtension;
+use Framework\View\RendererInterface;
+use Framework\View\TwigRouteExtension;
+use Framework\Session\SessionInterface;
+use Framework\Security\PasswordInerface;
 use Framework\Factory\SwiftMailerFactory;
 use Framework\Factory\TwigRendererFactory;
-use Framework\View\FlashExtension;
-use Framework\View\FormExtension;
-use Framework\View\RendererInterface;
-use Framework\Security\Password;
-use Framework\Security\PasswordInerface;
-use Framework\Session\PHPSession;
-use Framework\Session\SessionInterface;
-use Framework\View\TwigRouteExtension;
-use function DI\factory;
-use function DI\get;
 
 return [
 
 
     // Configuration de la base de donnée
     'database' => [
-        'host'      => getenv('DB_HOST') ?: 'localhost',
-        'name'      => getenv('DB_DATABASE') ?: 'zen',
-        'username'  => getenv('DB_USERNAME') ?: 'root',
-        'password'  => getenv('DB_PASSWORD') ?: 'root',
+        'host'      => Env::get('DB_HOST', 'localhost'),
+        'name'      => Env::get('DB_DATABASE', 'zen'),
+        'username'  => Env::get('DB_USERNAME', 'root'),
+        'password'  => Env::get('DB_PASSWORD', 'root'),
     ],
 
 
@@ -40,11 +42,11 @@ return [
 
     // Configuration de mail
     'mail' => [
-        'driver'    => getenv('MAIL_DRIVER') ?: 'smtp',
-        'host'      => getenv('MAIL_HOST') ?: 'localhost',
-        'port'      => getenv('MAIL_PORT') ?: 1025,
-        'username'  => getenv('MAIL_USERNAME'),
-        'password'  => getenv('MAIL_PASSWORD'),
+        'driver'    => Env::get('MAIL_DRIVER', 'smtp'),
+        'host'      => Env::get('MAIL_HOST', 'localhost'),
+        'port'      => Env::get('MAIL_PORT', 1025),
+        'username'  => Env::get('MAIL_USERNAME'),
+        'password'  => Env::get('MAIL_PASSWORD'),
     ],
 
 
@@ -52,5 +54,4 @@ return [
     PDO::class => factory(PdoFactory::class),
     Swift_Mailer::class => factory(SwiftMailerFactory::class),
     RendererInterface::class => factory(TwigRendererFactory::class),
-    PasswordInerface::class => get(Password::class),
 ];

@@ -3,10 +3,15 @@
 
 namespace App\Models;
 
-use Framework\Security\Authenticatable;
+use Framework\Security\Auth;
+use Framework\Databases\AbstractModel;
 
-class User extends Authenticatable
+class User extends Auth
 {
 
     protected $table = 'users';
+
+    protected $rules = [
+        'username' => 'notEmpty'
+    ];
 }
