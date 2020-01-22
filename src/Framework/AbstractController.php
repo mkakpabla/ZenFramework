@@ -3,10 +3,12 @@
 
 namespace Framework;
 
+use Framework\Router\Router;
+use Framework\Security\Auth;
+use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Psr7\MessageTrait;
 use Framework\Session\FlashService;
 use Framework\View\RendererInterface;
-use GuzzleHttp\Psr7\MessageTrait;
-use GuzzleHttp\Psr7\Response;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -51,7 +53,7 @@ abstract class AbstractController
      */
     protected function redirect(string $routeName, ?array $params = [])
     {
-        $uri = $this->container->get('router')->uri($routeName, $params);
+        $uri = $this->container->get(Router::class)->uri($routeName, $params);
         return (new Response())
             ->withStatus(301)
             ->withHeader('location', $uri);
@@ -72,5 +74,10 @@ abstract class AbstractController
     {
         $this->container = $container;
         return $this;
+    }
+
+    public function auth(?string $guard = 'user')
+    {
+        return $this->container->get(Auth::class, ['user']);
     }
 }

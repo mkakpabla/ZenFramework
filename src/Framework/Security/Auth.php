@@ -3,53 +3,65 @@
 
 namespace Framework\Security;
 
-use Zen\Database\Query;
 use Psr\Container\ContainerInterface;
 use Framework\Databases\AbstractModel;
 use Framework\Session\SessionInterface;
+use Framework\Security\PasswordInterface;
 
-class Auth extends AbstractModel
+class Auth
 {
 
-    protected $guard = 'user';
+    private $guard;
     /**
      * @var SessionInterface
      */
     private $session;
     /**
-     * @var PasswordInerface
+     * @var PasswordInterface
      */
     private $password;
 
+    /**
+     * @var ContainerInterface
+     */
+    private $container;
+
     private $auth;
 
-    
+
+    public function __construct(ContainerInterface $container, string $guard = 'user')
+    {
+        $this->container = $container;
+        $this->session = $container->get(SessionInterface::class);
+        $this->password = $container->get(PasswordInterface::class);
+        $this->guard = $guard;
+    } 
     /**
      * @param array $credentials
-     * @param string $redirectRoute
+     * @param string $guard
      */
-    public function login(array $credentials, string $redirectRoute)
+    public function login(array $credentials): self
     {
         $credentialsKey = array_keys($credentials);
-        $this->auth = $this->get($credentialsKey[0], $credentials[$credentialsKey[0]]);
+        $model = $this->container->get('auth')[$this->guard];
+        $this->auth = $model->get($credentialsKey[0], $credentials[$credentialsKey[0]]);
         if ($this->auth && $this->password->verify($credentials['password'], $this->auth->password)) {
             $this->session->set($this->guard, $this->auth->id);
-            return $this->auth;
         }
-        return null;
+        return $this;
     }
 
-    public function logout()
+    public function logout(string $guard = 'user')
     {
-        $this->session->delete($this->guard);
+        $this->session->delete($guard);
     }
 
-    public function getUser()
+    public function getUser(string $guard = 'user')
     {
         if ($this->auth) {
             return $this->auth;
         }
-        $userId = $this->session->get($this->guard);
+        $userId = $this->session->get($guard);
         if ($userId) {
             $this->auth = $this->find($userId);
             if ($this->auth) {

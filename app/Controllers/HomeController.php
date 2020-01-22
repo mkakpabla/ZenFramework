@@ -8,11 +8,7 @@ class HomeController extends AbstractController
 {
 
 
-    public function __construct(User $user)
-    {
-        
-    }
-
+    
     /**
      * @Route('get', '/', 'home')
      */

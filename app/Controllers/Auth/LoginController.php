@@ -5,6 +5,7 @@ namespace App\Controllers\Auth;
 
 
 use App\Models\User;
+use Framework\Security\Auth;
 use Framework\AbstractController;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -28,6 +29,9 @@ class LoginController extends AbstractController
     public function login(ServerRequestInterface $request)
     {
         $credentials = $request->getParsedBody();
-        $this->container->get(User::class)->all();
+        $auth = $this->auth()->login($credentials);
+        if($auth->getUser()) {
+            return $this->redirect('home');
+        }
     }
 }

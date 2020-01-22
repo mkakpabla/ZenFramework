@@ -3,7 +3,7 @@
 
 namespace Framework\Security;
 
-class Password implements PasswordInerface
+class Password implements PasswordInterface
 {
 
     /**

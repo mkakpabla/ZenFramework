@@ -17,13 +17,6 @@ abstract class AbstractModel
 
     protected $rules = [];
 
-    private $container;
-
-
-    public function __construct(ContainerInterface $container)
-    {
-        $this->container = $container;
-    }
 
     public function __get(string $name)
     {
@@ -42,7 +35,7 @@ abstract class AbstractModel
 
     public function all()
     {
-        return $this->getQuery()
+        return DB::query()
             ->table($this->getTable())
             ->select('*')
             ->into(User::class)
@@ -69,7 +62,7 @@ abstract class AbstractModel
 
     public function get($key, $value)
     {
-        return $this->query
+        return DB::query()
             ->table($this->getTable())
             ->where(["$key = ?" => $value])
             ->select('*')
@@ -103,10 +96,5 @@ abstract class AbstractModel
             return $table;
         }
         return $this->table;
-    }
-
-    private function getQuery(): Query
-    {
-        return $this->container->get(Query::class);
     }
 }

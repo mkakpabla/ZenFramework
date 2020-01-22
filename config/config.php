@@ -12,8 +12,8 @@ use Framework\View\FlashExtension;
 use Framework\View\RendererInterface;
 use Framework\View\TwigRouteExtension;
 use Framework\Session\SessionInterface;
-use Framework\Security\PasswordInerface;
 use Framework\Factory\SwiftMailerFactory;
+use Framework\Security\PasswordInterface;
 use Framework\Factory\TwigRendererFactory;
 
 return [
@@ -49,9 +49,14 @@ return [
         'password'  => Env::get('MAIL_PASSWORD'),
     ],
 
+    'auth' => [
+        'user' => get(User::class)
+    ],
+
 
     SessionInterface::class => get(PHPSession::class),
     PDO::class => factory(PdoFactory::class),
     Swift_Mailer::class => factory(SwiftMailerFactory::class),
     RendererInterface::class => factory(TwigRendererFactory::class),
+    PasswordInterface::class => get(Password::class)
 ];

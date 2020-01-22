@@ -3,10 +3,9 @@
 
 namespace App\Models;
 
-use Framework\Security\Auth;
 use Framework\Databases\AbstractModel;
 
-class User extends Auth
+class User extends AbstractModel
 {
 
     protected $table = 'users';

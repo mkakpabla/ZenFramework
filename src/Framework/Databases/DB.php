@@ -1,7 +1,9 @@
 <?php
 
-namespace Framework\Database;
+namespace Framework\Databases;
 
+use PDO;
+use Framework\Env;
 use Zen\Database\Query;
 
 
@@ -23,6 +25,6 @@ class DB
 
     public static function query()
     {
-        return new Query(self::pdo);
+        return new Query(self::pdo());
     }
 }
