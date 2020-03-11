@@ -32,6 +32,20 @@ class LoginController extends AbstractController
         $auth = $this->auth()->login($credentials);
         if($auth->getUser()) {
             return $this->redirect('home');
+        } else {
+            $this->addFlash('error', 'Identifiant ou mot de passe incorrecte');
+            return $this->redirect('loginForm');
         }
+    }
+
+    /**
+     * @Route('get', '/logout', 'logout')
+     * @param ServerRequestInterface $request
+     * @param User $user
+     */
+    public function logout()
+    {
+        $this->auth()->logout();
+        return $this->redirect('loginForm');
     }
 }

@@ -13,4 +13,10 @@ class User extends AbstractModel
     protected $rules = [
         'username' => 'notEmpty'
     ];
+
+
+
+
+
+    
 }

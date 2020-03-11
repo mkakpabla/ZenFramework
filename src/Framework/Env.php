@@ -29,7 +29,7 @@ class Env
     {
         self::load();
         $value = getenv($varname);
-        if (is_null($value)) { return $default; } else {return $default; }
+        if (is_null($value)) { return $default; } else {return $value; }
     }
 
     public static function config(string $key)

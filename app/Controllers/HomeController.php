@@ -12,7 +12,7 @@ class HomeController extends AbstractController
     /**
      * @Route('get', '/', 'home')
      */
-    public function index()
+    public function index(User $user)
     {
         return $this->render('welcome');
     }

@@ -29,6 +29,7 @@ class RegisterController extends AbstractController
      */
     public function register(ServerRequestInterface $request, User $user)
     {
+        $user->validate($request);
         dd($user->all());
     }
 

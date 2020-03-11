@@ -4,9 +4,7 @@
 namespace Framework\Databases;
 
 use App\Models\User;
-use Zen\Database\Query;
 use Zen\Validation\Validator;
-use Psr\Container\ContainerInterface;
 use Zen\Validation\UndifedRuleException;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -38,13 +36,13 @@ abstract class AbstractModel
         return DB::query()
             ->table($this->getTable())
             ->select('*')
-            ->into(User::class)
+            ->into(get_class($this))
             ->fetchAll();
     }
 
     public function take(int $limit)
     {
-        return $this->query
+        return DB::query()
             ->table($this->getTable())
             ->select('*')
             ->limit($limit)
@@ -53,10 +51,11 @@ abstract class AbstractModel
 
     public function find(int $id)
     {
-        return $this->query
+        return DB::query()
             ->table($this->getTable())
             ->select('*')
             ->where(['id = ?' => $id])
+            ->into(get_class($this))
             ->fetch();
     }
 

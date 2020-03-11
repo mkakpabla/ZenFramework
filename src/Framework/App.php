@@ -3,16 +3,19 @@
 
 namespace Framework;
 
-use DI\Container;
-use DI\DependencyException;
-use DI\NotFoundException;
 use Exception;
+use DI\Container;
+use DI\NotFoundException;
+use DI\DependencyException;
+use Framework\Router\Router;
 use GuzzleHttp\Psr7\Response;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\MiddlewareInterface;
-use Psr\Http\Server\RequestHandlerInterface;
+use Aura\Router\RouterContainer;
+use Framework\Router\RouteExtractor;
 use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 /**
  * Class App
@@ -45,6 +48,7 @@ class App implements RequestHandlerInterface
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
+        $this->extractRoute();
     }
 
     /**
@@ -66,6 +70,9 @@ class App implements RequestHandlerInterface
 
 
 
+    /**
+     * Permet d'ajouter un nouveau middleware
+     */
     public function pipe(string $middleware)
     {
         $this->middlewares[] = $middleware;
@@ -94,5 +101,22 @@ class App implements RequestHandlerInterface
             return $middleware;
         }
         return null;
+    }
+
+
+    /**
+     * Extraire les routes des controllers
+     */
+    private function extractRoute()
+    {
+        //dd($this->container->get('router')['cache']);
+        $router = (new Router(
+            new RouterContainer(),
+            new RouteExtractor(
+                $this->container->get('router')['controller'],
+                $this->container->get('router')['cache']))
+            )->extract();
+        
+        $this->container->set(Router::class, $router);
     }
 }

@@ -31,7 +31,7 @@ return [
     // Configuration de twig
     'twig' => [
         'paths' => dirname(__DIR__) . '/templates',
-        'cache' => false,  // __DIR__ . '/cache',
+        'cache' => __DIR__ . '/cache',Env::get('APP_CACHE', false) === true ? __DIR__ . '/cache' : null,
         'extensions' => [
             TwigRouteExtension::class,
             FormExtension::class,
@@ -51,6 +51,11 @@ return [
 
     'auth' => [
         'user' => get(User::class)
+    ],
+
+    'router' => [
+        'controller' => dirname(__DIR__) . '/app/Controllers',
+        'cache' => Env::get('APP_CACHE', false) === true ? __DIR__ . '/cache' : null
     ],
 
 

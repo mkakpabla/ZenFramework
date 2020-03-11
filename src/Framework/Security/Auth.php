@@ -28,6 +28,8 @@ class Auth
 
     private $auth;
 
+    private $model;
+
 
     public function __construct(ContainerInterface $container, string $guard = 'user')
     {
@@ -35,6 +37,7 @@ class Auth
         $this->session = $container->get(SessionInterface::class);
         $this->password = $container->get(PasswordInterface::class);
         $this->guard = $guard;
+        $this->model = $this->container->get('auth')[$guard];
     } 
     /**
      * @param array $credentials
@@ -43,8 +46,7 @@ class Auth
     public function login(array $credentials): self
     {
         $credentialsKey = array_keys($credentials);
-        $model = $this->container->get('auth')[$this->guard];
-        $this->auth = $model->get($credentialsKey[0], $credentials[$credentialsKey[0]]);
+        $this->auth = $this->model->get($credentialsKey[0], $credentials[$credentialsKey[0]]);
         if ($this->auth && $this->password->verify($credentials['password'], $this->auth->password)) {
             $this->session->set($this->guard, $this->auth->id);
         }
@@ -63,7 +65,7 @@ class Auth
         }
         $userId = $this->session->get($guard);
         if ($userId) {
-            $this->auth = $this->find($userId);
+            $this->auth = $this->model->find($userId);
             if ($this->auth) {
                 return $this->auth;
             }
